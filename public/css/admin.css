@@ -1,0 +1,834 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =========================================================
+   PKL Online - Admin Dashboard
+   File: public/css/admin.css
+
+   DAFTAR ISI
+   01. Variabel (warna, radius, bayangan)
+   02. Reset & dasar
+   03. Layout utama (wrapper)
+   04. Sidebar
+   05. Topbar, konten, footer
+   06. Banner selamat datang
+   07. Kartu statistik
+   08. Grid dashboard & panel
+   09. Grafik garis (Statistik Pengajuan PKL)
+   10. Diagram donat (Status Pengajuan)
+   11. Tabel pengajuan terbaru
+   12. Badge status
+   13. Aktivitas terbaru
+   14. Responsive
+   ========================================================= */
+
+
+/* =========================================================
+   01. VARIABEL
+   Ubah warna tema cukup dari sini
+   ========================================================= */
+:root {
+    /* Warna utama */
+    --primary: #6551D9;          /* ungu utama */
+    --primary-dark: #4B38B8;     /* ungu gelap */
+    --primary-soft: #EFECFD;     /* ungu sangat muda (latar ikon/badge) */
+    --lavender: #A99AFB;         /* lavender (garis Disetujui) */
+
+    /* Warna teks & latar */
+    --ink: #201747;              /* judul */
+    --text: #3A3F5C;             /* teks biasa */
+    --muted: #7B82A3;            /* teks sekunder */
+    --line: #ECEBFA;             /* garis pembatas */
+    --bg: #F5F4FD;               /* latar halaman */
+    --card: #FFFFFF;             /* latar kartu */
+
+    /* Warna ikon & status */
+    --blue: #3B82F6;      --blue-soft: #E6F0FF;
+    --orange: #FFB547;    --orange-soft: #FFF3DD;
+    --green: #22C08A;     --green-soft: #DDF7EC;
+    --red: #F2566B;       --red-soft: #FFE5E9;
+
+    /* Radius sudut */
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+
+    /* Bayangan */
+    --shadow-sm: 0 1px 2px rgba(32, 23, 71, .04), 0 4px 14px rgba(101, 81, 217, .06);
+    --shadow-md: 0 10px 30px rgba(101, 81, 217, .14);
+
+    /* Lebar sidebar */
+    --sidebar-w: 264px;
+}
+
+
+/* =========================================================
+   02. RESET & DASAR
+   ========================================================= */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; }
+
+/* Outline saat navigasi keyboard */
+:focus-visible {
+    outline: 3px solid rgba(101, 81, 217, .35);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   03. LAYOUT UTAMA
+   ========================================================= */
+
+/* Pembungkus sidebar + konten */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   04. SIDEBAR
+   ========================================================= */
+
+/* Kotak sidebar (menempel di kiri saat scroll) */
+.admin-sidebar {
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    flex: 0 0 var(--sidebar-w);
+    width: var(--sidebar-w);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 24px 18px 18px;
+    background: var(--card);
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+}
+
+/* Logo + nama aplikasi */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 26px;
+    padding: 0 8px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -.3px;
+    color: var(--ink);
+}
+
+/* Kotak ikon logo */
+.brand-icon {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    font-size: 20px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary), #8B79F5);
+    box-shadow: 0 8px 18px rgba(101, 81, 217, .35);
+}
+
+/* Judul grup menu (MENU UTAMA, PREFERENSI) */
+.sidebar-label {
+    margin: 6px 12px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: #A3A8C3;
+}
+
+/* Item menu */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    color: var(--muted);
+    transition: background .2s, color .2s;
+}
+
+.sidebar-link i { font-size: 17px; }
+
+/* Menu saat disorot kursor */
+.sidebar-link:hover {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+/* Menu yang sedang aktif */
+.sidebar-link.active {
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    box-shadow: 0 8px 18px rgba(101, 81, 217, .32);
+}
+
+/* Kartu admin di bagian bawah sidebar */
+.sidebar-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    background: var(--primary-soft);
+}
+
+/* Avatar bulat admin */
+.admin-avatar {
+    width: 40px;
+    height: 40px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-weight: 700;
+    color: #fff;
+    background: var(--primary);
+}
+
+.admin-name { font-weight: 700; color: var(--ink); line-height: 1.2; }  /* nama admin */
+.admin-role { font-size: 12px; color: var(--muted); }                   /* jabatan admin */
+
+
+/* =========================================================
+   05. TOPBAR, KONTEN, FOOTER
+   ========================================================= */
+
+/* Area di kanan sidebar */
+.admin-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header atas (menempel saat scroll, efek blur) */
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 32px;
+    background: rgba(245, 244, 253, .85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+}
+
+.topbar-caption { font-size: 12px; font-weight: 500; color: var(--muted); }                        /* teks kecil di atas judul */
+.topbar-heading { font-size: 22px; font-weight: 800; letter-spacing: -.4px; color: var(--ink); }   /* judul halaman */
+
+/* Pill profil admin di kanan atas */
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 8px 6px 16px;
+    border-radius: 999px;
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    color: var(--primary);
+}
+
+/* Titik hijau status online */
+.online-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 4px rgba(34, 192, 138, .2);
+}
+
+.topbar-admin { font-weight: 700; color: var(--ink); }   /* tulisan "Admin" */
+
+/* Isi halaman */
+.page-content {
+    flex: 1;
+    padding: 28px 32px;
+}
+
+/* Footer */
+.admin-footer {
+    padding: 18px 32px 26px;
+    font-size: 12px;
+    text-align: center;
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   06. BANNER SELAMAT DATANG
+   ========================================================= */
+
+/* Kotak banner gradasi ungu */
+.welcome-section {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding: 30px 36px;
+    border-radius: var(--radius-lg);
+    color: #fff;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(255, 255, 255, .22), transparent 38%),
+        linear-gradient(120deg, #4B38B8 0%, #6551D9 55%, #8B79F5 100%);
+    box-shadow: var(--shadow-md);
+}
+
+/* Hiasan lingkaran di pojok kanan bawah banner */
+.welcome-section::after {
+    content: '';
+    position: absolute;
+    right: 90px;
+    bottom: -90px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 38px solid rgba(255, 255, 255, .08);
+}
+
+.welcome-section > div:first-child { position: relative; z-index: 1; }   /* teks di atas hiasan */
+
+/* Label kecil "ADMINISTRATION OVERVIEW" */
+.welcome-label {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    background: rgba(255, 255, 255, .18);
+}
+
+/* Judul banner */
+.welcome-section h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+/* Deskripsi banner */
+.welcome-section p {
+    margin: 0;
+    max-width: 480px;
+    color: rgba(255, 255, 255, .85);
+}
+
+/* Kotak ikon topi wisuda di kanan banner */
+.welcome-icon {
+    position: relative;
+    z-index: 1;
+    width: 84px;
+    height: 84px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 24px;
+    font-size: 42px;
+    background: rgba(255, 255, 255, .16);
+    border: 1px solid rgba(255, 255, 255, .28);
+    transform: rotate(-6deg);
+}
+
+
+/* =========================================================
+   07. KARTU STATISTIK
+   ========================================================= */
+
+/* Grid 4 kartu */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+/* Satu kartu statistik */
+.stat-card {
+    padding: 22px;
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Baris atas kartu (ikon + tag) */
+.stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+/* Kotak ikon */
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 21px;
+}
+
+/* Warna ikon per kartu */
+.stat-icon.blue   { color: var(--blue);   background: var(--blue-soft); }    /* Total Pengajuan */
+.stat-icon.orange { color: #E89A12;       background: var(--orange-soft); }  /* Menunggu */
+.stat-icon.green  { color: var(--green);  background: var(--green-soft); }   /* Disetujui */
+.stat-icon.red    { color: var(--red);    background: var(--red-soft); }     /* Ditolak */
+
+/* Tag kecil di kanan atas kartu */
+.stat-tag {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--primary-soft);
+}
+
+/* Angka besar */
+.stat-number {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -1px;
+    color: var(--ink);
+}
+
+.stat-title { margin-top: 8px; font-weight: 700; color: var(--ink); }          /* judul kartu */
+.stat-note  { margin-top: 2px; font-size: 12.5px; color: var(--muted); }       /* keterangan kartu */
+
+
+/* =========================================================
+   08. GRID DASHBOARD & PANEL
+   ========================================================= */
+
+/* Dua kolom: kiri (grafik + tabel), kanan (donat + aktivitas) */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.75fr) minmax(300px, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+/* Kolom kiri & kanan */
+.dashboard-left,
+.dashboard-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-width: 0;
+}
+
+/* Kartu putih pembungkus tiap bagian */
+.panel {
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Kepala panel (judul + aksi di kanan) */
+.panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.panel-header h5 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -.2px;
+    color: var(--ink);
+}
+
+.panel-header p { margin: 3px 0 0; font-size: 12.5px; color: var(--muted); }
+
+/* Kotak ikon kecil di kanan kepala panel */
+.panel-heading-icon {
+    width: 36px;
+    height: 36px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    font-size: 17px;
+    color: var(--primary);
+    background: var(--primary-soft);
+}
+
+/* Tombol "Lihat semua" */
+.panel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--primary);
+    background: var(--primary-soft);
+    transition: background .2s, color .2s;
+}
+
+.panel-link:hover { color: #fff; background: var(--primary); }
+
+
+/* =========================================================
+   09. GRAFIK GARIS (Statistik Pengajuan PKL)
+   Dirender oleh Chart.js di <canvas id="pengajuanChart">
+   ========================================================= */
+
+/* Pill periode "7 Bulan Terakhir" */
+.chart-period {
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    background: #FAFAFF;
+}
+
+/* Keterangan warna garis (Pengajuan / Disetujui) */
+.chart-legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.chart-legend span { display: inline-flex; align-items: center; gap: 8px; }
+
+/* Titik warna legend (dipakai grafik garis & donat) */
+.legend-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    flex: none;
+    border-radius: 50%;
+}
+
+.purple-dot   { background: var(--primary); }    /* Pengajuan / Menunggu */
+.lavender-dot { background: var(--lavender); }   /* Disetujui */
+.orange-dot   { background: var(--orange); }     /* Ditolak */
+
+/* Area grafik. Kalau tinggi diubah, ubah juga angka 290
+   pada createLinearGradient di dashboard.blade.php */
+.chart-container {
+    position: relative;
+    height: 290px;
+}
+
+
+/* =========================================================
+   10. DIAGRAM DONAT (Status Pengajuan)
+   Dirender oleh Chart.js di <canvas id="statusChart">
+   ========================================================= */
+
+/* Pembungkus donat + legend */
+.donut-content {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+/* Kotak donat (ukuran tetap) */
+.donut-chart-wrap {
+    position: relative;
+    width: 168px;
+    height: 168px;
+    flex: none;
+    margin: 0 auto;
+}
+
+/* Angka total di tengah donat */
+.donut-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.donut-center strong {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -.8px;
+    color: var(--ink);
+}
+
+.donut-center span { margin-top: 4px; font-size: 12px; color: var(--muted); }
+
+/* Daftar legend di samping donat */
+.donut-legend {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Satu baris legend */
+.donut-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    background: #FAFAFF;
+    border: 1px solid var(--line);
+}
+
+/* Nama status + jumlah */
+.legend-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.legend-info strong { font-weight: 800; color: var(--ink); }
+
+
+/* =========================================================
+   11. TABEL PENGAJUAN TERBARU
+   ========================================================= */
+
+/* Tabel (baris dibuat berbentuk kapsul) */
+.admin-table {
+    --bs-table-bg: transparent;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+}
+
+/* Judul kolom */
+.admin-table thead th {
+    padding: 6px 14px;
+    border: 0;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--muted);
+    background: transparent;
+}
+
+/* Sel isi tabel */
+.admin-table tbody td {
+    padding: 12px 14px;
+    border: 0;
+    font-weight: 500;
+    background: #FAFAFF;
+    color: var(--text);
+}
+
+/* Sudut membulat di ujung kiri & kanan baris */
+.admin-table tbody td:first-child { border-radius: 12px 0 0 12px; }
+.admin-table tbody td:last-child  { border-radius: 0 12px 12px 0; }
+
+/* Baris saat disorot kursor */
+.admin-table tbody tr:hover td { background: var(--primary-soft); }
+
+/* Sel nama siswa (avatar + nama) */
+.student-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+/* Avatar inisial (tabel & aktivitas terbaru) */
+.student-avatar,
+.recent-avatar {
+    width: 36px;
+    height: 36px;
+    flex: none;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--primary);
+    background: #E4DFFC;
+}
+
+
+/* =========================================================
+   12. BADGE STATUS
+   ========================================================= */
+
+/* Bentuk dasar badge (ada titik kecil di depan) */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.status-approved { color: #12945F; background: var(--green-soft); }    /* Disetujui */
+.status-rejected { color: #D63A50; background: var(--red-soft); }      /* Ditolak */
+.status-pending  { color: #C77D00; background: var(--orange-soft); }   /* Menunggu */
+
+
+/* =========================================================
+   13. AKTIVITAS TERBARU
+   ========================================================= */
+
+/* Satu baris aktivitas */
+.recent-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+}
+
+.recent-item:first-of-type { padding-top: 0; }
+.recent-item:last-child { padding-bottom: 0; border-bottom: 0; }
+
+/* Avatar inisial (lebih besar dari di tabel) */
+.recent-avatar { width: 42px; height: 42px; }
+
+/* Nama, instansi, tanggal */
+.recent-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.35;
+}
+
+.recent-info strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--ink);
+}
+
+.recent-info span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.recent-info small { font-size: 11.5px; color: #A3A8C3; }
+
+
+/* =========================================================
+   14. RESPONSIVE
+   ========================================================= */
+
+/* Laptop kecil: kartu statistik jadi 2 kolom */
+@media (max-width: 1280px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Tablet: panel kanan turun ke bawah */
+@media (max-width: 1100px) {
+    .dashboard-grid { grid-template-columns: 1fr; }
+}
+
+/* Tablet kecil: sidebar jadi bar horizontal (ikon saja) */
+@media (max-width: 900px) {
+    .admin-wrapper { flex-direction: column; }
+
+    .admin-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        flex: none;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        padding: 14px 16px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .brand { margin: 0 auto 0 0; }
+    .sidebar-label,
+    .sidebar-footer { display: none; }
+    .sidebar-link { padding: 10px 12px; }
+    .sidebar-link span { display: none; }
+
+    .topbar { position: static; padding: 14px 20px; }
+    .page-content { padding: 20px; }
+    .welcome-section { padding: 24px; }
+    .welcome-icon { display: none; }
+}
+
+/* HP: semua jadi 1 kolom */
+@media (max-width: 600px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .welcome-section h1 { font-size: 22px; }
+    .panel { padding: 18px; }
+    .chart-container { height: 240px; }
+    .panel-header { flex-wrap: wrap; }
+}
+
+/* Hormati pengguna yang mematikan animasi */
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+}
