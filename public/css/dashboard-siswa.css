@@ -1,0 +1,2436 @@
+
+/* =========================================
+   DASHBOARD SISWA PKL ONLINE
+   Sesuai dengan class pada dashboard.blade.php
+   ========================================= */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #eff6ff;
+    --background: #f5f7fb;
+    --white: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --success: #16a34a;
+    --warning: #f59e0b;
+    --purple: #7c3aed;
+    --radius: 14px;
+    --shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    --sidebar-width: 250px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+i.ti {
+    line-height: 1;
+}
+
+/* =========================================
+   LAYOUT UTAMA
+   ========================================= */
+
+.app {
+    min-height: 100vh;
+}
+
+.main {
+    min-height: 100vh;
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s ease;
+}
+
+.content {
+    padding: 0 32px 25px;
+}
+
+/* =========================================
+   SIDEBAR
+   ========================================= */
+
+.side {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    width: var(--sidebar-width);
+    padding: 25px 18px 18px;
+    overflow-y: auto;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    transition: transform 0.3s ease;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 0 7px 34px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    color: white;
+    background: var(--primary);
+    border-radius: 12px;
+    font-size: 22px;
+}
+
+.brand-light {
+    margin-left: 3px;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.sidebar-label {
+    margin: 0 12px 12px;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 14px;
+    color: var(--muted);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav a i {
+    font-size: 19px;
+}
+
+.nav a:hover {
+    color: var(--primary);
+    background: #f8fafc;
+}
+
+.nav a.active {
+    color: var(--primary);
+    background: var(--primary-light);
+    font-weight: 700;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 28px;
+}
+
+.help-card {
+    padding: 17px 15px;
+    margin-bottom: 15px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.help-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 12px;
+    color: var(--primary);
+    background: var(--primary-light);
+    border-radius: 10px;
+    font-size: 19px;
+}
+
+.help-card strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.help-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.sidebar-bottom form {
+    margin: 0;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    color: #dc2626;
+    background: white;
+    border: none;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 13px;
+}
+
+.logout-button:hover {
+    background: #fef2f2;
+}
+
+.logout-button i {
+    font-size: 19px;
+}
+
+.sidebar-overlay {
+    display: none;
+}
+
+/* =========================================
+   HEADER ATAS
+   ========================================= */
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 27px 32px 24px;
+    margin-bottom: 0;
+}
+
+.top-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.breadcrumb {
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.top h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    line-height: 1.3;
+}
+
+.top-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 7px 10px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.avatar,
+.profile-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--primary);
+    background: var(--primary-light);
+    border-radius: 50%;
+    font-weight: 750;
+}
+
+.avatar {
+    width: 39px;
+    height: 39px;
+    font-size: 15px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.user-info strong {
+    max-width: 190px;
+    overflow: hidden;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-info span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.user-chevron {
+    color: #94a3b8;
+    font-size: 17px;
+}
+
+.menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--text);
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 21px;
+}
+
+/* =========================================
+   HERO / SAMBUTAN
+   ========================================= */
+
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    min-height: 225px;
+    padding: 30px 34px;
+    margin-bottom: 29px;
+    overflow: hidden;
+    color: white;
+    background: linear-gradient(120deg, #2563eb, #1e40af);
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.12);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 590px;
+}
+
+.hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    margin-bottom: 17px;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hero h2 {
+    margin: 0 0 10px;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.hero p {
+    max-width: 520px;
+    margin: 0 0 22px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 11px 16px;
+    color: var(--primary-dark);
+    background: white;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 700;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hero-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(15, 23, 42, 0.12);
+}
+
+.hero-art {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    min-width: 170px;
+    height: 175px;
+}
+
+.art-circle {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+.circle-one {
+    width: 190px;
+    height: 190px;
+}
+
+.circle-two {
+    width: 140px;
+    height: 140px;
+}
+
+.art-card {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    height: 135px;
+    color: var(--primary);
+    background: white;
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+    transform: rotate(4deg);
+}
+
+.art-card i {
+    margin-bottom: 7px;
+    font-size: 34px;
+}
+
+.art-card span {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.art-card small {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 8px;
+}
+
+/* =========================================
+   JUDUL SECTION
+   ========================================= */
+
+.section {
+    margin-bottom: 27px;
+}
+
+.section-heading,
+.panel-heading,
+.chart-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.section-heading {
+    margin-bottom: 17px;
+}
+
+.section-heading h2,
+.panel-heading h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 750;
+}
+
+.section-heading p,
+.panel-heading p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.updated-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    color: var(--muted);
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+/* =========================================
+   KARTU STATISTIK
+   ========================================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.stat-card {
+    min-width: 0;
+    padding: 20px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 25px rgba(15, 23, 42, 0.07);
+}
+
+.stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 17px;
+}
+
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 43px;
+    border-radius: 12px;
+    font-size: 21px;
+}
+
+.stat-icon.blue {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.stat-icon.purple {
+    color: #7c3aed;
+    background: #f5f3ff;
+}
+
+.stat-icon.green {
+    color: #16a34a;
+    background: #f0fdf4;
+}
+
+.stat-icon.orange {
+    color: #ea580c;
+    background: #fff7ed;
+}
+
+.stat-dots {
+    color: #cbd5e1;
+    font-size: 19px;
+}
+
+.stat-label {
+    margin: 0 0 5px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.stat-card h3 small {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.stat-description {
+    margin: 8px 0 0;
+    color: #94a3b8;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   PANEL / KARTU KONTEN
+   ========================================= */
+
+.main-grid,
+.bottom-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.panel,
+.chart-card {
+    min-width: 0;
+    padding: 23px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.panel-heading {
+    margin-bottom: 23px;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    color: #1d4ed8;
+    background: #eff6ff;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* =========================================
+   INFORMASI PERUSAHAAN PKL
+   ========================================= */
+
+.company {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border);
+}
+
+.company-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    color: var(--primary);
+    background: var(--primary-light);
+    border-radius: 14px;
+    font-size: 25px;
+}
+
+.company h3 {
+    margin: 0 0 5px;
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.company p {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.company p i {
+    font-size: 14px;
+}
+
+.progress-info {
+    padding: 21px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.progress-info > div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 11px;
+}
+
+.progress-info > div:first-child span {
+    color: var(--muted);
+}
+
+.progress-info > div:first-child strong {
+    color: var(--primary);
+    font-size: 13px;
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    overflow: hidden;
+    background: #eaf0f8;
+    border-radius: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #60a5fa, #2563eb);
+    border-radius: inherit;
+    transition: width 0.4s ease;
+}
+
+.progress-info > p {
+    margin: 9px 0 0;
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+.detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 12px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.detail-row span i {
+    font-size: 15px;
+}
+
+.detail-row strong {
+    max-width: 60%;
+    font-size: 11px;
+    font-weight: 650;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   AKTIVITAS TERBARU
+   ========================================= */
+
+.heading-icon,
+.chart-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    flex-shrink: 0;
+    color: var(--primary);
+    background: var(--primary-light);
+    border-radius: 11px;
+    font-size: 20px;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.activity-item:first-child {
+    padding-top: 0;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0;
+    color: var(--primary);
+    background: var(--primary-light);
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.activity-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-body h3 {
+    margin: 2px 0 5px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.activity-body p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.activity-status {
+    padding: 5px 8px;
+    color: #1d4ed8;
+    background: #eff6ff;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: 650;
+    overflow-wrap: anywhere;
+}
+
+.text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 14px;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.text-link:hover {
+    color: var(--primary-dark);
+}
+
+/* =========================================
+   PENGUMUMAN
+   ========================================= */
+
+.announcement-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.announcement-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    background: #f8fafc;
+    border: 1px solid #eef2f7;
+    border-radius: 11px;
+}
+
+.announcement-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.announcement-icon.blue {
+    color: var(--primary);
+    background: #eff6ff;
+}
+
+.announcement-icon.orange {
+    color: #ea580c;
+    background: #fff7ed;
+}
+
+.announcement-item h3 {
+    margin: 1px 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.announcement-item p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+.announcement-item span {
+    display: block;
+    margin-top: 9px;
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+/* =========================================
+   PROFIL SISWA
+   ========================================= */
+
+.profile-summary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 0 21px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.profile-avatar {
+    width: 66px;
+    height: 66px;
+    margin-bottom: 12px;
+    font-size: 24px;
+}
+
+.profile-summary h3 {
+    margin: 0 0 5px;
+    font-size: 14px;
+    font-weight: 750;
+    overflow-wrap: anywhere;
+}
+
+.profile-summary p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.profile-details {
+    padding-top: 10px;
+}
+
+.profile-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    padding: 11px 14px;
+    margin-top: 17px;
+    color: var(--primary);
+    background: white;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.profile-button:hover {
+    background: var(--primary-light);
+}
+
+/* =========================================
+   GRAFIK
+   ========================================= */
+
+.dashboard-charts {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.chart-heading {
+    margin-bottom: 18px;
+}
+
+.chart-heading h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.chart-heading p {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 270px;
+}
+
+.chart-doughnut {
+    height: 270px;
+}
+
+.chart-container canvas {
+    max-width: 100%;
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px 0 5px;
+    color: #94a3b8;
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+}
+
+/* =========================================
+   RESPONSIVE TABLET
+   ========================================= */
+
+@media (max-width: 1200px) {
+    .content {
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+
+    .top {
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .main-grid,
+    .bottom-grid,
+    .dashboard-charts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero-art {
+        width: 180px;
+        min-width: 150px;
+    }
+}
+
+/* =========================================
+   RESPONSIVE MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+    .side {
+        transform: translateX(-100%);
+        box-shadow: none;
+    }
+
+    .side.active {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .sidebar-overlay.active {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        display: block;
+        background: rgba(15, 23, 42, 0.42);
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .top {
+        align-items: flex-start;
+        padding: 20px 17px;
+    }
+
+    .top h1 {
+        font-size: 21px;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+    }
+
+    .content {
+        padding: 0 17px 20px;
+    }
+
+    .hero {
+        min-height: 0;
+        padding: 25px 23px;
+    }
+
+    .hero h2 {
+        font-size: 23px;
+    }
+
+    .hero-art {
+        width: 130px;
+        min-width: 110px;
+        height: 145px;
+    }
+
+    .circle-one {
+        width: 135px;
+        height: 135px;
+    }
+
+    .circle-two {
+        width: 100px;
+        height: 100px;
+    }
+
+    .art-card {
+        width: 100px;
+        height: 110px;
+    }
+
+    .art-card i {
+        font-size: 27px;
+    }
+
+    .art-card span {
+        font-size: 15px;
+    }
+
+    .stats {
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-card h3 {
+        font-size: 22px;
+    }
+
+    .main-grid,
+    .bottom-grid,
+    .dashboard-charts {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .panel,
+    .chart-card {
+        padding: 19px;
+    }
+
+    .chart-container,
+    .chart-doughnut {
+        height: 245px;
+    }
+}
+
+/* =========================================
+   RESPONSIVE HP KECIL
+   ========================================= */
+
+@media (max-width: 480px) {
+    .top {
+        padding: 17px 13px;
+    }
+
+    .content {
+        padding-right: 13px;
+        padding-left: 13px;
+    }
+
+    .top h1 {
+        font-size: 18px;
+    }
+
+    .top-left {
+        gap: 10px;
+    }
+
+    .user {
+        gap: 7px;
+        padding: 5px;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .user-chevron {
+        display: none;
+    }
+
+    .hero {
+        padding: 22px 18px;
+    }
+
+    .hero h2 {
+        font-size: 21px;
+    }
+
+    .hero p {
+        font-size: 12px;
+    }
+
+    .hero-art {
+        display: none;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 13px;
+    }
+
+    .stat-icon {
+        width: 37px;
+        height: 37px;
+        font-size: 19px;
+    }
+
+    .stat-card h3 {
+        font-size: 20px;
+    }
+
+    .stat-description {
+        font-size: 9px;
+    }
+
+    .panel-heading h2,
+    .section-heading h2 {
+        font-size: 14px;
+    }
+
+    .status-pill {
+        max-width: 120px;
+    }
+
+    .activity-item {
+        flex-wrap: wrap;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* ========================================
+   PENYESUAIAN CSS SESUAI HTML DASHBOARD
+   ======================================== */
+
+/* SIDEBAR */
+.side {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-width);
+    padding: 25px 18px;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+    margin-bottom: 35px;
+    font-size: 18px;
+    font-weight: 750;
+}
+
+.brand-icon {
+    width: 43px;
+    height: 43px;
+    background: var(--primary);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.brand-light {
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.sidebar-label {
+    padding: 0 12px;
+    margin-bottom: 10px;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.nav a i {
+    font-size: 19px;
+}
+
+.nav a:hover {
+    background: #f1f5f9;
+    color: var(--primary);
+}
+
+.nav a.active {
+    background: #eff6ff;
+    color: #2563eb;
+    font-weight: 650;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 25px;
+}
+
+.help-card {
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.help-icon {
+    color: var(--primary);
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.help-card strong {
+    font-size: 12px;
+}
+
+.help-card p {
+    margin: 5px 0 0;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    background: white;
+    color: #64748b;
+    border: none;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.logout-button:hover {
+    background: #fef2f2;
+    color: var(--danger);
+}
+
+/* KONTEN UTAMA */
+.main {
+    min-height: 100vh;
+    margin-left: var(--sidebar-width);
+    padding: 28px 32px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.top-left,
+.top-right,
+.user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.breadcrumb {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.top h1 {
+    margin: 4px 0 0;
+    font-size: 25px;
+    font-weight: 750;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info strong {
+    font-size: 12px;
+}
+
+.user-info span {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.avatar,
+.profile-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 50%;
+    font-weight: 750;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+}
+
+.user-chevron {
+    color: var(--text-muted);
+}
+
+.content {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+/* HERO */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 28px 30px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    color: white;
+    background: linear-gradient(120deg, #2563eb, #1e40af);
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.hero h2 {
+    margin: 12px 0 8px;
+    font-size: 23px;
+}
+
+.hero p {
+    max-width: 560px;
+    margin: 0 0 18px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    color: #1d4ed8;
+    background: white;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.hero-art {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    min-height: 150px;
+}
+
+.art-circle {
+    position: absolute;
+    border: 20px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+}
+
+.circle-one {
+    width: 170px;
+    height: 170px;
+}
+
+.circle-two {
+    width: 115px;
+    height: 115px;
+}
+
+.art-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px 25px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 15px;
+}
+
+.art-card i {
+    font-size: 34px;
+}
+
+.art-card span {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.art-card small {
+    font-size: 10px;
+}
+
+/* SECTION DAN KARTU */
+.section,
+.main-grid,
+.bottom-grid {
+    margin-bottom: 25px;
+}
+
+.section-heading,
+.panel-heading,
+.chart-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.section-heading h2,
+.panel-heading h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.section-heading p,
+.panel-heading p {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.updated-label {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.stat-card,
+.panel,
+.chart-card {
+    min-width: 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.stat-card {
+    padding: 20px;
+    transition: 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+}
+
+.stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.stat-dots {
+    color: #94a3b8;
+}
+
+.stat-label {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.stat-card h3 {
+    margin: 5px 0;
+    font-size: 25px;
+}
+
+.stat-card h3 small {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.stat-description {
+    margin: 5px 0 0;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+/* INFORMASI PKL DAN AKTIVITAS */
+.main-grid,
+.bottom-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 22px;
+}
+
+.panel {
+    padding: 23px;
+}
+
+.status-pill {
+    padding: 5px 10px;
+    color: #1d4ed8;
+    background: #eff6ff;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.company {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.company h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+}
+
+.company p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.progress-info {
+    margin: 22px 0;
+}
+
+.progress-info > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 9px;
+}
+
+.progress-info p {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.progress-track {
+    height: 8px;
+    overflow: hidden;
+    background: #eaf0f8;
+    border-radius: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #2563eb);
+    border-radius: inherit;
+}
+
+.detail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+}
+
+.detail-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.detail-row span {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.detail-row strong {
+    max-width: 60%;
+    text-align: right;
+    font-size: 12px;
+    overflow-wrap: anywhere;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.activity-item:first-child {
+    padding-top: 0;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-body h3 {
+    margin: 0 0 4px;
+    font-size: 12px;
+}
+
+.activity-body p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* PENGUMUMAN DAN PROFIL */
+.announcement-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.announcement-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid #eef2f7;
+    border-radius: 11px;
+}
+
+.announcement-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.announcement-icon.orange {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.announcement-item h3 {
+    margin: 0 0 5px;
+    font-size: 12px;
+}
+
+.announcement-item p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.announcement-item span {
+    display: block;
+    margin-top: 8px;
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+.profile-summary {
+    text-align: center;
+    padding: 8px 0 20px;
+}
+
+.profile-avatar {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 10px;
+    font-size: 22px;
+}
+
+.profile-summary h3 {
+    margin: 0 0 5px;
+    font-size: 14px;
+}
+
+.profile-summary p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.profile-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px;
+    color: var(--primary);
+    background: var(--primary-light);
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* GRAFIK */
+.chart-heading h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.chart-heading p {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.chart-icon,
+.heading-icon {
+    color: var(--primary);
+    font-size: 21px;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 280px;
+}
+
+.chart-doughnut {
+    height: 280px;
+}
+
+/* FOOTER */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px 0 5px;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+    .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .main-grid,
+    .bottom-grid,
+    .dashboard-charts {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .side {
+        transform: translateX(-100%);
+    }
+
+    .side.active {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: rgba(15, 23, 42, 0.4);
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 20px 16px;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: white;
+        color: var(--text);
+        font-size: 20px;
+    }
+
+    .top {
+        align-items: flex-start;
+    }
+
+    .top h1 {
+        font-size: 21px;
+    }
+
+    .user-info,
+    .user-chevron {
+        display: none;
+    }
+
+    .hero {
+        padding: 24px 22px;
+    }
+
+    .hero-art {
+        display: none;
+    }
+
+    .panel,
+    .chart-card {
+        padding: 18px;
+    }
+
+    .chart-container,
+    .chart-doughnut {
+        height: 240px;
+    }
+}
+
+@media (max-width: 420px) {
+    .main {
+        padding: 16px 12px;
+    }
+
+    .stats {
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-card h3 {
+        font-size: 20px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .detail-row {
+        gap: 8px;
+    }
+}
+
+/* ========================================
+   SIDEBAR MENU - PKL ONLINE
+   ======================================== */
+
+.side {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    padding: 25px 18px;
+    background: #172554;
+    color: #ffffff;
+    border-right: 1px solid #263765;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+/* Logo dan nama aplikasi */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 10px;
+    margin-bottom: 35px;
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.brand-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #3b6df6;
+    color: #ffffff;
+    font-size: 23px;
+}
+
+.brand-light {
+    color: #8db4ff;
+}
+
+.sidebar-label {
+    padding: 0 12px;
+    margin-bottom: 12px;
+    color: #91a9d8;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+/* Daftar menu */
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 14px;
+    border-radius: 11px;
+    color: #c5d4f2;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav a i {
+    font-size: 20px;
+    color: #a8c5ff;
+}
+
+.nav a:hover {
+    background: #263b70;
+    color: #ffffff;
+}
+
+.nav a:hover i {
+    color: #ffffff;
+}
+
+/* Menu yang sedang aktif */
+.nav a.active {
+    background: #3b6df6;
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+}
+
+.nav a.active i {
+    color: #ffffff;
+}
+
+/* Bagian bantuan dan logout */
+.sidebar-bottom {
+    margin-top: auto;
+    padding-top: 25px;
+}
+
+.help-card {
+    padding: 18px;
+    margin-bottom: 15px;
+    background: #233563;
+    border: 1px solid #354878;
+    border-radius: 14px;
+    color: #ffffff;
+}
+
+.help-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    border-radius: 11px;
+    background: #304b85;
+    color: #a8c5ff;
+    font-size: 21px;
+}
+
+.help-card strong {
+    display: block;
+    font-size: 13px;
+}
+
+.help-card p {
+    margin: 8px 0 0;
+    color: #bdcdef;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.sidebar-bottom form {
+    margin: 0;
+}
+
+.logout-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #c5d4f2;
+    text-align: left;
+    font-size: 13px;
+}
+
+.logout-button:hover {
+    background: #7f1d1d;
+    color: #ffffff;
+}
+
+/* Area konten utama */
+.main {
+    min-height: 100vh;
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+
+.menu-toggle {
+    display: none;
+}
+
+/* Tampilan HP */
+@media (max-width: 768px) {
+    .side {
+        transform: translateX(-100%);
+        box-shadow: none;
+    }
+
+    .side.active {
+        transform: translateX(0);
+        box-shadow: 10px 0 30px rgba(15, 23, 42, 0.2);
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        background: rgba(15, 23, 42, 0.45);
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Menaikkan posisi header dan konten dashboard */
+.top {
+    margin-top: 0;
+    padding-top: 10px;
+    margin-bottom: 18px;
+}
+
+.content {
+    padding-top: 0;
+}
+
+.hero {
+    margin-top: 0;
+}
+
+/* Mengurangi jarak atas halaman */
+.main {
+    padding-top: 0;
+}
+
+@media (min-width: 769px) {
+    .main {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+    .top {
+        padding-top: 8px;
+        margin-bottom: 16px;
+    }
+}
+
+/* ========================================
+   ANIMASI DASHBOARD SAAT DIBUKA
+   ======================================== */
+
+@keyframes munculDariAtas {
+    from {
+        opacity: 0;
+        transform: translateY(-18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes munculDariBawah {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes munculDariKanan {
+    from {
+        opacity: 0;
+        transform: translateX(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Header muncul lebih dahulu */
+.top {
+    animation: munculDariAtas 0.6s ease-out both;
+}
+
+/* Kartu sambutan */
+.hero {
+    animation: munculDariBawah 0.7s ease-out 0.15s both;
+}
+
+/* Judul ringkasan */
+.section {
+    animation: munculDariBawah 0.7s ease-out 0.3s both;
+}
+
+/* Statistik muncul satu per satu */
+.stat-card {
+    animation: munculDariBawah 0.55s ease-out both;
+}
+
+.stat-card:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.stat-card:nth-child(2) {
+    animation-delay: 0.52s;
+}
+
+.stat-card:nth-child(3) {
+    animation-delay: 0.64s;
+}
+
+.stat-card:nth-child(4) {
+    animation-delay: 0.76s;
+}
+
+/* Informasi PKL dan aktivitas */
+.main-grid {
+    animation: munculDariBawah 0.7s ease-out 0.8s both;
+}
+
+/* Pengumuman dan profil */
+.bottom-grid {
+    animation: munculDariBawah 0.7s ease-out 0.95s both;
+}
+
+/* Grafik muncul terakhir */
+.dashboard-charts {
+    animation: munculDariBawah 0.7s ease-out 1.1s both;
+}
+
+/* Efek kartu saat diarahkan kursor */
+.stat-card,
+.panel,
+.chart-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stat-card:hover,
+.panel:hover,
+.chart-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.09);
+}
+
+/* Hormati pengaturan pengguna yang mengurangi animasi */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
