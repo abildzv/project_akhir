@@ -1,0 +1,610 @@
+/* =========================================================
+   DATA SISWA
+   File: public/css/siswa.css
+   Tema: sama dengan Dashboard Admin (ungu, putih, lavender)
+
+   CATATAN: file ini memakai variabel warna dari admin.css
+   (--primary, --lavender, --ink, --line, dst). Pastikan
+   admin.css dimuat lebih dulu (sudah ada di layouts/admin).
+
+   DAFTAR ISI
+   01. Dasar halaman
+   02. Header halaman (banner)
+   03. Kartu ringkasan
+   04. Kartu tabel
+   05. Pencarian
+   06. Tabel data
+   07. Identitas siswa
+   08. Data kosong dan pagination
+   09. Responsif HP
+   10. Cetak
+   11. Aksesibilitas
+   ========================================================= */
+
+
+/* =========================================================
+   01. DASAR HALAMAN
+   ========================================================= */
+.siswa-page {
+    color: var(--text);
+    font-family: inherit;   /* ikut Plus Jakarta Sans dari admin.css */
+    padding: 0 0 30px;
+}
+
+
+/* =========================================================
+   02. HEADER HALAMAN (banner gradasi seperti dashboard)
+   ========================================================= */
+
+/* Kotak banner */
+.siswa-header {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding: 28px 34px;
+    border-radius: var(--radius-lg);
+    color: #fff;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(255, 255, 255, .22), transparent 38%),
+        linear-gradient(120deg, #4B38B8 0%, #6551D9 55%, #8B79F5 100%);
+    box-shadow: var(--shadow-md);
+}
+
+/* Hiasan lingkaran di pojok banner */
+.siswa-header::after {
+    content: '';
+    position: absolute;
+    right: 90px;
+    bottom: -90px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 38px solid rgba(255, 255, 255, .08);
+    pointer-events: none;
+}
+
+.siswa-header > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Label kecil di atas judul */
+.siswa-eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .18);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+/* Judul */
+.siswa-header h1 {
+    margin: 0 0 6px;
+    color: #fff;
+    font-size: clamp(22px, 2vw, 28px);
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+/* Deskripsi */
+.siswa-header p {
+    margin: 0;
+    max-width: 480px;
+    color: rgba(255, 255, 255, .85);
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+
+/* Kotak ikon kaca di kanan banner */
+.siswa-header-icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    font-size: 34px;
+    transform: rotate(-6deg);
+}
+
+@media (max-width: 576px) {
+    .siswa-header-icon {
+        display: none;
+    }
+}
+
+@media print {
+    .siswa-header-icon {
+        display: none !important;
+    }
+}
+
+/* =========================================================
+   03. KARTU RINGKASAN
+   ========================================================= */
+
+/* Kartu total siswa */
+.siswa-summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 340px;
+    margin-bottom: 24px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.siswa-summary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Kotak ikon */
+.siswa-summary-icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 15px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    font-size: 24px;
+}
+
+/* Label */
+.siswa-summary p {
+    margin: 0 0 4px;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-weight: 500;
+}
+
+/* Angka */
+.siswa-summary h2 {
+    margin: 0;
+    color: var(--ink);
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -.8px;
+    line-height: 1.1;
+}
+
+
+/* =========================================================
+   04. KARTU TABEL
+   ========================================================= */
+
+/* Kartu putih pembungkus pencarian + tabel */
+.siswa-table-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Kepala kartu (judul + deskripsi) */
+.siswa-table-heading {
+    padding: 24px 24px 8px;
+}
+
+.siswa-table-heading h5 {
+    margin: 0 0 4px;
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -.2px;
+}
+
+.siswa-table-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+
+/* =========================================================
+   05. PENCARIAN
+   ========================================================= */
+
+/* Baris pencarian */
+.siswa-search {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 16px 24px 18px;
+}
+
+/* Kolom input */
+.siswa-search-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    max-width: 440px;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #FAFAFF;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.siswa-search-input:focus-within {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+}
+
+.siswa-search-input i {
+    color: #A3A8C3;
+}
+
+.siswa-search-input input {
+    width: 100%;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.siswa-search-input input::placeholder {
+    color: #A3A8C3;
+}
+
+/* Tombol Cari & Reset */
+.siswa-search button,
+.siswa-search a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+/* Tombol Cari (ungu) */
+.siswa-search button {
+    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(101, 81, 217, .28);
+}
+
+.siswa-search button:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+
+/* Tombol Reset (putih) */
+.siswa-search a {
+    border-color: var(--line);
+    background: #fff;
+    color: var(--muted);
+}
+
+.siswa-search a:hover {
+    border-color: var(--lavender);
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   06. TABEL DATA (baris berbentuk kapsul seperti dashboard)
+   ========================================================= */
+
+/* Tabel (diberi jarak kiri-kanan agar kapsul tidak mepet tepi kartu) */
+.siswa-table {
+    --bs-table-bg: transparent;
+    width: calc(100% - 48px);
+    margin: 0 24px 8px;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+    vertical-align: middle;
+}
+
+/* Judul kolom */
+.siswa-table thead th {
+    padding: 6px 14px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Sel isi */
+.siswa-table tbody td {
+    padding: 13px 14px;
+    border: 0;
+    background: #FAFAFF;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Sudut membulat di ujung baris */
+.siswa-table tbody td:first-child { border-radius: 12px 0 0 12px; }
+.siswa-table tbody td:last-child  { border-radius: 0 12px 12px 0; }
+
+/* Baris saat disorot */
+.siswa-table tbody tr:hover td {
+    background: var(--primary-soft);
+}
+
+
+/* =========================================================
+   07. IDENTITAS SISWA
+   ========================================================= */
+
+/* Avatar + nama */
+.siswa-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Avatar inisial */
+.siswa-avatar {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #E4DFFC;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   08. DATA KOSONG DAN PAGINATION
+   ========================================================= */
+
+/* Tampilan data kosong */
+.siswa-empty {
+    padding: 48px 15px !important;
+    text-align: center;
+    color: var(--muted) !important;
+}
+
+.siswa-empty i {
+    display: inline-grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    border-radius: 20px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 32px;
+}
+
+.siswa-empty p {
+    margin: 12px 0 0;
+    font-size: 13px;
+}
+
+/* Pembungkus pagination */
+.siswa-pagination {
+    padding: 14px 24px 22px;
+}
+
+.siswa-pagination nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.siswa-pagination p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.siswa-pagination .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+}
+
+/* Tombol halaman */
+.siswa-pagination .page-link {
+    min-width: 38px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: none;
+}
+
+.siswa-pagination .page-link:hover {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+/* Halaman aktif */
+.siswa-pagination .page-item.active .page-link {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(101, 81, 217, .3);
+}
+
+/* Halaman nonaktif */
+.siswa-pagination .page-item.disabled .page-link {
+    background: #FAFAFF;
+    color: #A3A8C3;
+}
+
+
+/* =========================================================
+   09. RESPONSIF HP
+   ========================================================= */
+@media (max-width: 576px) {
+    .siswa-header {
+        padding: 22px 20px;
+    }
+
+    .siswa-header h1 {
+        font-size: 22px;
+    }
+
+    .siswa-summary {
+        max-width: 100%;
+    }
+
+    .siswa-table-heading {
+        padding: 20px 15px 8px;
+    }
+
+    .siswa-search {
+        padding: 14px 15px;
+    }
+
+    .siswa-search-input {
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+
+    .siswa-search button,
+    .siswa-search a {
+        flex: 1;
+    }
+
+    .siswa-table {
+        width: calc(100% - 30px);
+        margin: 0 15px 8px;
+    }
+
+    .siswa-pagination {
+        padding: 14px 15px 20px;
+    }
+
+    .siswa-pagination nav {
+        justify-content: center;
+    }
+}
+
+
+/* =========================================================
+   10. CETAK
+   ========================================================= */
+@media print {
+    /* Sembunyikan elemen yang tidak perlu dicetak */
+    .siswa-search,
+    .siswa-pagination,
+    .sidebar,
+    .admin-sidebar,
+    .topbar,
+    .admin-footer,
+    .navbar {
+        display: none !important;
+    }
+
+    .page-content {
+        padding: 0 !important;
+    }
+
+    .siswa-page {
+        padding: 0;
+    }
+
+    /* Header jadi polos (tanpa gradasi) */
+    .siswa-header {
+        padding: 0 0 14px;
+        background: none;
+        box-shadow: none;
+        color: #000;
+    }
+
+    .siswa-header::after {
+        display: none;
+    }
+
+    .siswa-header h1,
+    .siswa-header p {
+        color: #000;
+    }
+
+    .siswa-table-card,
+    .siswa-summary {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+
+    /* Tabel kembali ke gaya baris biasa */
+    .siswa-table {
+        width: 100%;
+        margin: 0;
+        border-spacing: 0;
+    }
+
+    .siswa-table tbody td {
+        background: #fff !important;
+        border-bottom: 1px solid #ddd;
+        border-radius: 0 !important;
+    }
+
+    .siswa-table thead th {
+        border-bottom: 1px solid #999;
+        color: #000;
+    }
+}
+
+
+/* =========================================================
+   11. AKSESIBILITAS
+   ========================================================= */
+.siswa-page button:focus-visible,
+.siswa-page a:focus-visible,
+.siswa-page input:focus-visible {
+    outline: 3px solid rgba(101, 81, 217, .35);
+    outline-offset: 2px;
+}
+
+/* Hormati pengguna yang mematikan animasi */
+@media (prefers-reduced-motion: reduce) {
+    .siswa-page * {
+        transition: none !important;
+    }
+}
