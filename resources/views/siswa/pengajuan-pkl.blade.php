@@ -97,14 +97,31 @@
                                 @selected(old('jurusan') == 'Rekayasa Perangkat Lunak')>
                                 Rekayasa Perangkat Lunak
                             </option>
-                            <option value="Teknik Komputer dan Jaringan"
-                                @selected(old('jurusan') == 'Teknik Komputer dan Jaringan')>
-                                Teknik Komputer dan Jaringan
+                            <option value="Desain Pemodelan dan Informasi Bangunan"
+                                @selected(old('jurusan') == 'Desain Pemodelan dan Informasi Bangunan')>
+                                Desain Pemodelan dan Informasi Bangunan
                             </option>
-                            <option value="Multimedia"
-                                @selected(old('jurusan') == 'Multimedia')>
-                                Multimedia
+                            <option value="Akutansi"
+                                @selected(old('jurusan') == 'Akutansi')>
+                                Akutansi
                             </option>
+                            <option value="Kuliner"
+                                @selected(old('jurusan') == 'Kuliner')>
+                               Kuliner
+                            </option>
+                            <option value=" Teknik Pendingin dan Tata Udara"
+                                @selected(old('jurusan') == ' Teknik Pendingin dan Tata Udara')>
+                                Teknik Pendingin dan Tata Udara
+                            </option>
+                             <option value=" Teknik Konstruksi dan Perumahan."
+                                @selected(old('jurusan') == ' Teknik Konstruksi dan Perumahan.')>
+                               Teknik Konstruksi dan Perumahan.
+                            </option>
+                             <option value=" Teknik Pengelasan"
+                                @selected(old('jurusan') == ' Teknik Pengelasan')>
+                               Teknik Pengelasan
+                            </option>
+                            
                         </select>
                     </div>
                     @error('jurusan')
