@@ -1,0 +1,744 @@
+/* =========================================================
+   DATA PENGAJUAN PKL
+   File: public/css/pengajuan.css
+   Tema: sama dengan Dashboard Admin (ungu, putih, lavender)
+
+   CATATAN: file ini memakai variabel warna dari admin.css
+   (--primary, --lavender, --ink, --line, dst). Pastikan
+   admin.css dimuat lebih dulu (sudah ada di layouts/admin).
+
+   DAFTAR ISI
+   01. Dasar halaman
+   02. Header halaman (banner)
+   03. Kartu ringkasan
+   04. Panel tabel
+   05. Pencarian dan filter
+   06. Tabel data
+   07. Identitas siswa
+   08. Badge status
+   09. Tombol detail
+   10. Tampilan kosong
+   11. Pagination Laravel
+   12. Responsif tablet
+   13. Responsif HP
+   14. Aksesibilitas
+   ========================================================= */
+
+
+/* =========================================================
+   01. DASAR HALAMAN
+   ========================================================= */
+.pengajuan-page {
+    width: 100%;
+    max-width: 1700px;
+    margin: 0 auto;
+    color: var(--text);
+    font-family: inherit;   /* ikut Plus Jakarta Sans dari admin.css */
+}
+
+.pengajuan-page * {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   02. HEADER HALAMAN (banner gradasi seperti dashboard)
+   ========================================================= */
+
+/* Kotak banner */
+.pengajuan-header {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding: 28px 34px;
+    border-radius: var(--radius-lg);
+    color: #fff;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(255, 255, 255, .22), transparent 38%),
+        linear-gradient(120deg, #4B38B8 0%, #6551D9 55%, #8B79F5 100%);
+    box-shadow: var(--shadow-md);
+}
+
+/* Hiasan lingkaran di pojok banner */
+.pengajuan-header::after {
+    content: '';
+    position: absolute;
+    right: 90px;
+    bottom: -90px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 38px solid rgba(255, 255, 255, .08);
+    pointer-events: none;
+}
+
+.pengajuan-header > div:first-child {
+    position: relative;
+    z-index: 1;
+}
+
+/* Label kecil di atas judul */
+.pengajuan-eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .18);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+/* Judul */
+.pengajuan-header h1 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(22px, 2vw, 28px);
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+/* Deskripsi */
+.pengajuan-header p {
+    margin: 6px 0 0;
+    max-width: 480px;
+    color: rgba(255, 255, 255, .85);
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+/* Kotak ikon di kanan banner */
+.pengajuan-header-icon {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    font-size: 34px;
+    transform: rotate(-6deg);
+}
+
+
+/* =========================================================
+   03. KARTU RINGKASAN (4 kartu)
+   ========================================================= */
+
+/* Grid 4 kartu */
+.pengajuan-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+/* Satu kartu */
+.pengajuan-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.pengajuan-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Kotak ikon */
+.pengajuan-stat-icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 21px;
+}
+
+/* Warna ikon per kartu */
+.stat-blue   { color: var(--blue);  background: var(--blue-soft); }
+.stat-orange { color: #E89A12;      background: var(--orange-soft); }
+.stat-green  { color: var(--green); background: var(--green-soft); }
+.stat-red    { color: var(--red);   background: var(--red-soft); }
+
+/* Keterangan kartu */
+.pengajuan-stat-card p {
+    margin: 0 0 4px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* Angka kartu */
+.pengajuan-stat-card h3 {
+    margin: 0;
+    color: var(--ink);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -.8px;
+    line-height: 1.1;
+}
+
+
+/* =========================================================
+   04. PANEL TABEL
+   ========================================================= */
+
+/* Kartu putih pembungkus filter + tabel */
+.pengajuan-panel {
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Kepala panel (judul + total) */
+.pengajuan-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.pengajuan-panel-header h2 {
+    margin: 0;
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -.2px;
+}
+
+.pengajuan-panel-header p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+
+/* Pill jumlah data */
+.pengajuan-total {
+    flex-shrink: 0;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   05. PENCARIAN DAN FILTER
+   ========================================================= */
+
+/* Baris filter */
+.pengajuan-filter {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+/* Kolom pencarian */
+.pengajuan-search {
+    position: relative;
+    flex: 1;
+    min-width: 220px;
+}
+
+.pengajuan-search > i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    color: #A3A8C3;
+    font-size: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.pengajuan-search input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px 0 42px;
+    outline: none;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #FAFAFF;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.pengajuan-search input::placeholder {
+    color: #A3A8C3;
+}
+
+.pengajuan-search input:focus {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+}
+
+/* Dropdown status */
+.pengajuan-filter-status {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 160px;
+}
+
+.pengajuan-filter-status > i {
+    position: absolute;
+    left: 14px;
+    color: var(--primary);
+    pointer-events: none;
+}
+
+.pengajuan-filter-status select {
+    width: 100%;
+    height: 44px;
+    padding: 0 30px 0 38px;
+    outline: none;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #FAFAFF;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.pengajuan-filter-status select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+}
+
+/* Tombol Filter & Reset */
+.btn-filter,
+.btn-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+/* Tombol Filter (ungu) */
+.btn-filter {
+    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(101, 81, 217, .28);
+}
+
+.btn-filter:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: #fff;
+}
+
+/* Tombol Reset (putih) */
+.btn-reset {
+    border-color: var(--line);
+    background: #fff;
+    color: var(--muted);
+}
+
+.btn-reset:hover {
+    border-color: var(--lavender);
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+
+/* =========================================================
+   06. TABEL DATA (baris berbentuk kapsul seperti dashboard)
+   ========================================================= */
+
+/* Pembungkus tabel (scroll horizontal di layar kecil) */
+.pengajuan-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Tabel */
+.pengajuan-table {
+    width: 100%;
+    min-width: 1000px;
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+    color: var(--text);
+    font-size: 13px;
+}
+
+/* Judul kolom */
+.pengajuan-table thead th {
+    padding: 6px 14px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Sel isi */
+.pengajuan-table tbody td {
+    padding: 13px 14px;
+    border: 0;
+    background: #FAFAFF;
+    font-weight: 500;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* Sudut membulat di ujung baris */
+.pengajuan-table tbody td:first-child { border-radius: 12px 0 0 12px; }
+.pengajuan-table tbody td:last-child  { border-radius: 0 12px 12px 0; }
+
+/* Baris saat disorot */
+.pengajuan-table tbody tr:hover td {
+    background: var(--primary-soft);
+}
+
+
+/* =========================================================
+   07. IDENTITAS SISWA
+   ========================================================= */
+
+/* Avatar + nama */
+.pengajuan-student {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 150px;
+}
+
+/* Avatar inisial */
+.pengajuan-avatar {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #E4DFFC;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.pengajuan-student strong {
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   08. BADGE STATUS
+   ========================================================= */
+
+/* Bentuk dasar badge (titik kecil di depan) */
+.pengajuan-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.pengajuan-badge > span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.badge-menunggu  { background: var(--orange-soft); color: #C77D00; }   /* Menunggu */
+.badge-disetujui { background: var(--green-soft);  color: #12945F; }   /* Disetujui */
+.badge-ditolak   { background: var(--red-soft);    color: #D63A50; }   /* Ditolak */
+
+
+/* =========================================================
+   09. TOMBOL DETAIL
+   ========================================================= */
+.btn-detail {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 34px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+.btn-detail:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+
+/* =========================================================
+   10. TAMPILAN KOSONG
+   ========================================================= */
+.pengajuan-empty {
+    padding: 48px 15px;
+    text-align: center;
+    white-space: normal;
+}
+
+.pengajuan-empty > i {
+    display: inline-grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    border-radius: 20px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 32px;
+}
+
+.pengajuan-empty h3 {
+    margin: 14px 0 6px;
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.pengajuan-empty p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+
+/* =========================================================
+   11. PAGINATION LARAVEL
+   ========================================================= */
+
+/* Pembungkus (rata kanan) */
+.pengajuan-pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.pengajuan-pagination nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Teks "Showing 1 to 10 of ..." */
+.pengajuan-pagination p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.pengajuan-pagination .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+}
+
+/* Tombol halaman */
+.pengajuan-pagination .page-link {
+    min-width: 38px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: none;
+}
+
+.pengajuan-pagination .page-link:hover {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+/* Halaman aktif */
+.pengajuan-pagination .page-item.active .page-link {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    color: #fff;
+    box-shadow: 0 6px 14px rgba(101, 81, 217, .3);
+}
+
+/* Halaman nonaktif */
+.pengajuan-pagination .page-item.disabled .page-link {
+    background: #FAFAFF;
+    color: #A3A8C3;
+}
+
+
+/* =========================================================
+   12. RESPONSIF TABLET
+   ========================================================= */
+@media (max-width: 1100px) {
+    .pengajuan-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pengajuan-panel {
+        padding: 18px;
+    }
+}
+
+
+/* =========================================================
+   13. RESPONSIF HP
+   ========================================================= */
+@media (max-width: 600px) {
+    .pengajuan-header {
+        margin-bottom: 18px;
+        padding: 22px 20px;
+    }
+
+    .pengajuan-header h1 {
+        font-size: 22px;
+    }
+
+    .pengajuan-header-icon {
+        display: none;
+    }
+
+    .pengajuan-stats {
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+
+    .pengajuan-stat-card {
+        gap: 10px;
+        padding: 14px;
+        border-radius: 16px;
+    }
+
+    .pengajuan-stat-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        font-size: 17px;
+    }
+
+    .pengajuan-stat-card p {
+        font-size: 10.5px;
+    }
+
+    .pengajuan-stat-card h3 {
+        font-size: 22px;
+    }
+
+    .pengajuan-panel {
+        padding: 14px;
+        border-radius: 16px;
+    }
+
+    .pengajuan-panel-header {
+        align-items: flex-start;
+        margin-bottom: 16px;
+    }
+
+    .pengajuan-panel-header h2 {
+        font-size: 15px;
+    }
+
+    .pengajuan-panel-header p {
+        font-size: 11.5px;
+    }
+
+    .pengajuan-total {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+
+    .pengajuan-filter {
+        align-items: stretch;
+        gap: 9px;
+    }
+
+    .pengajuan-search {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .pengajuan-filter-status {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .btn-filter,
+    .btn-reset {
+        flex: 1;
+        padding: 0 12px;
+    }
+
+    .pengajuan-pagination {
+        justify-content: center;
+    }
+}
+
+
+/* =========================================================
+   14. AKSESIBILITAS
+   ========================================================= */
+.pengajuan-page button:focus-visible,
+.pengajuan-page a:focus-visible,
+.pengajuan-page input:focus-visible,
+.pengajuan-page select:focus-visible {
+    outline: 3px solid rgba(101, 81, 217, .35);
+    outline-offset: 2px;
+}
+
+/* Hormati pengguna yang mematikan animasi */
+@media (prefers-reduced-motion: reduce) {
+    .pengajuan-page * {
+        transition: none !important;
+    }
+}
