@@ -6,6 +6,17 @@ use App\Http\Controllers\Admin\PengajuanController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\SiswaController;
 
+use App\Http\Controllers\SiswaDashboardController;
+
+Route::get('/dashboard-siswa', [
+    SiswaDashboardController::class,
+    'index'
+])->name('siswa.dashboard');
+
+Route::get('/pengajuan-pkl', function () {
+    return view('siswa.pengajuan-pkl');
+})->name('siswa.pengajuan');
+
 Route::get('/', function () {
     return view('welcome');
 });
