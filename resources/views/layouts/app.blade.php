@@ -5,24 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@yield('title', 'Dashboard Siswa PKL')</title>
+    <title>@yield('title', 'PKL Online')</title>
 
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    >
 
-<link rel="stylesheet" href="{{ asset('css/dashboard-siswa.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard-siswa.css') }}">
 
-@stack('styles')
+    @stack('styles')
 </head>
 <body>
 
@@ -30,68 +30,85 @@
 
     {{-- SIDEBAR --}}
     <aside class="side" id="sidebar">
+
         <div class="brand">
             <div class="brand-icon">
                 <i class="ti ti-school"></i>
             </div>
 
             <div class="brand-light">
-                <strong>PKL Siswa</strong>
-                <small>Dashboard Akademik</small>
+                <strong>PKL</strong>
+                <span>Online</span>
             </div>
         </div>
 
         <div class="sidebar-label">MENU UTAMA</div>
 
-        <nav class="nav">
-            <a href="{{ url('/dashboard-siswa') }}"
-               class="{{ request()->is('dashboard-siswa') ? 'active' : '' }}">
+        <nav class="nav" aria-label="Navigasi utama">
+
+            <a href="{{ route('siswa.dashboard') }}"
+               class="{{ request()->routeIs('siswa.dashboard') ? 'active' : '' }}"
+               @if(request()->routeIs('siswa.dashboard')) aria-current="page" @endif>
                 <i class="ti ti-layout-dashboard"></i>
                 <span>Dashboard</span>
             </a>
 
-            <a href="{{ url('/pengajuan-pkl') }}"
-               class="{{ request()->is('pengajuan-pkl') ? 'active' : '' }}">
-                <i class="ti ti-file-pencil"></i>
+            <a href="{{ route('siswa.pengajuan') }}"
+               class="{{ request()->routeIs('siswa.pengajuan') ? 'active' : '' }}"
+               @if(request()->routeIs('siswa.pengajuan')) aria-current="page" @endif>
+                <i class="ti ti-file-plus"></i>
                 <span>Pengajuan PKL</span>
             </a>
 
-            <a href="{{ url('/upload-laporan') }}"
-               class="{{ request()->is('upload-laporan') ? 'active' : '' }}">
-                <i class="ti ti-file-upload"></i>
+            <a href="{{ route('siswa.laporan.index') }}"
+               class="{{ request()->routeIs('siswa.laporan.*') ? 'active' : '' }}"
+               @if(request()->routeIs('siswa.laporan.*')) aria-current="page" @endif>
+                <i class="ti ti-cloud-upload"></i>
                 <span>Upload Laporan</span>
             </a>
 
             <a href="{{ url('/cek-status') }}"
-               class="{{ request()->is('cek-status') ? 'active' : '' }}">
+               class="{{ request()->is('cek-status') ? 'active' : '' }}"
+               @if(request()->is('cek-status')) aria-current="page" @endif>
                 <i class="ti ti-clipboard-check"></i>
                 <span>Cek Status</span>
             </a>
 
             <a href="{{ url('/profile') }}"
-               class="{{ request()->is('profile') ? 'active' : '' }}">
+               class="{{ request()->is('profile') ? 'active' : '' }}"
+               @if(request()->is('profile')) aria-current="page" @endif>
                 <i class="ti ti-user-circle"></i>
-                <span>Profil Saya</span>
+                <span>Profile</span>
             </a>
+
         </nav>
 
         <div class="sidebar-bottom">
+
             <div class="help-card">
                 <div class="help-icon">
-                    <i class="ti ti-help-circle"></i>
+                    <i class="ti ti-headset"></i>
                 </div>
 
-                <strong>Butuh Bantuan?</strong>
-                <p>Hubungi guru pembimbing jika mengalami kendala.</p>
+                <strong>Butuh bantuan?</strong>
+
+                <p>
+                    Hubungi guru pembimbing jika mengalami kendala.
+                </p>
             </div>
 
-            <form action="{{ url('/logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="logout-button">
-                    <i class="ti ti-logout"></i>
-                    <span>Keluar</span>
-                </button>
-            </form>
+            {{-- Aktifkan form logout jika route logout sudah tersedia --}}
+            @if(\Illuminate\Support\Facades\Route::has('logout'))
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+
+                    <button type="submit" class="logout-button">
+                        <i class="ti ti-logout"></i>
+                        <span>Keluar</span>
+                    </button>
+                </form>
+            @endif
+
         </div>
     </aside>
 
@@ -102,36 +119,54 @@
 
         {{-- NAVBAR --}}
         <header class="top">
+
             <div class="top-left">
-                <button type="button"
-                        class="menu-toggle"
-                        id="menuToggle"
-                        aria-label="Buka menu">
+
+                <button
+                    type="button"
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Buka menu"
+                    aria-controls="sidebar"
+                    aria-expanded="false"
+                >
                     <i class="ti ti-menu-2"></i>
                 </button>
 
                 <div>
-                    <strong>@yield('page-heading', 'Dashboard Siswa')</strong>
-                  <p>
-    <span>Dashboard</span>
-    <i class="ti ti-chevron-right"></i>
-    @yield('page-heading', 'Beranda')
-</p>
+                    <strong>
+                        @yield('page-heading', 'Dashboard')
+                    </strong>
+
+                    <p>
+                        <span>PKL Online</span>
+                        <i class="ti ti-chevron-right"></i>
+                        <span>@yield('page-heading', 'Dashboard')</span>
+                    </p>
                 </div>
+
             </div>
 
             <div class="top-right">
                 <div class="user">
+
                     <div class="avatar">
                         <i class="ti ti-user"></i>
                     </div>
 
                     <div class="user-info">
-                        <strong>{{ $siswa['nama'] ?? auth()->user()?->name ?? 'Siswa' }}</strong>
-                        <small>{{ $siswa['kelas'] ?? 'Siswa PKL' }}</small>
+                        <strong>
+                            {{ $siswa['nama'] ?? auth()->user()?->name ?? 'Siswa' }}
+                        </strong>
+
+                        <small>
+                            {{ $siswa['kelas'] ?? 'Siswa PKL' }}
+                        </small>
                     </div>
+
                 </div>
             </div>
+
         </header>
 
         {{-- ISI HALAMAN --}}
@@ -148,17 +183,30 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
 
-    if (menuToggle && sidebar && overlay) {
-        menuToggle.addEventListener('click', function () {
-            sidebar.classList.toggle('show');
-            overlay.classList.toggle('show');
-        });
-
-        overlay.addEventListener('click', function () {
-            sidebar.classList.remove('show');
-            overlay.classList.remove('show');
-        });
+    if (!menuToggle || !sidebar || !overlay) {
+        return;
     }
+
+    function closeSidebar() {
+        sidebar.classList.remove('show');
+        overlay.classList.remove('show');
+        menuToggle.setAttribute('aria-expanded', 'false');
+    }
+
+    menuToggle.addEventListener('click', function () {
+        const isOpen = sidebar.classList.toggle('show');
+
+        overlay.classList.toggle('show', isOpen);
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeSidebar();
+        }
+    });
 });
 </script>
 

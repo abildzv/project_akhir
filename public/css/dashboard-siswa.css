@@ -2434,3 +2434,233 @@ i.ti {
         transition-duration: 0.01ms !important;
     }
 }
+.side .brand-light strong {
+    color: #ffffff !important;
+}
+
+.side .brand-light small {
+    color: #8db4ff !important;
+}
+
+/* Warna tulisan logo PKL Online */
+.brand-light strong {
+    color: #ffffff !important;
+}
+
+.brand-light {
+    color: #8db4ff;
+}
+
+/* ========================================
+   SIDEBAR SISWA - EFEK MENU AKTIF
+   ======================================== */
+
+/* Sidebar tetap biru tua */
+.side {
+    background: #172554;
+    color: #ffffff;
+}
+
+/* Logo */
+.brand {
+    color: #ffffff;
+}
+
+.brand-light strong {
+    color: #ffffff !important;
+}
+
+.brand-light span {
+    color: #8db4ff;
+}
+
+/* Menu yang belum dipilih */
+.nav a {
+    color: #d3def7;
+    background: transparent;
+    border-radius: 16px 0 0 16px;
+    margin-right: -18px;
+    padding: 15px 18px;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-radius 0.25s ease;
+}
+
+.nav a i {
+    color: #b8ccff;
+    transition: color 0.25s ease;
+}
+
+/* Efek saat kursor diarahkan */
+.nav a:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+.nav a:hover:not(.active) i {
+    color: #ffffff;
+}
+
+/* Menu yang sedang aktif: putih dengan teks biru */
+.nav a.active {
+    position: relative;
+    background: #f5f3ff;
+    color: #6554d9;
+    font-weight: 700;
+    border-radius: 22px 0 0 22px;
+    box-shadow: none;
+}
+
+/* Ikon pada menu aktif */
+.nav a.active i {
+    color: #6554d9;
+}
+
+/* Label menu */
+.sidebar-label {
+    color: #c4baff;
+}
+
+/* Kartu bantuan tetap bernuansa biru */
+.help-card {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border-radius: 16px;
+}
+
+.help-card p {
+    color: #e0e7ff;
+}
+
+/* Tombol keluar */
+.logout-button {
+    background: transparent;
+    color: #e0e7ff;
+}
+
+.logout-button:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+/* Animasi menu aktif */
+.nav a:active {
+    transform: scale(0.98);
+}
+
+/* Tampilan mobile */
+@media (max-width: 768px) {
+    .nav a {
+        margin-right: -18px;
+        padding: 15px 18px;
+    }
+}
+/* ==============================
+   GRAFIK DASHBOARD SISWA
+============================== */
+
+.dashboard-charts {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    align-items: stretch;
+}
+
+.chart-card {
+    min-width: 0;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e8edf5;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.chart-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.chart-heading h3 {
+    margin: 0 0 8px;
+    color: #172033;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.chart-heading p {
+    margin: 0;
+    color: #8490a5;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.chart-icon {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 22px;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.chart-doughnut {
+    height: 300px;
+    max-width: 100%;
+}
+
+.chart-container canvas {
+    display: block;
+    max-width: 100%;
+}
+
+/* Tampilan tablet dan HP */
+@media (max-width: 900px) {
+    .dashboard-charts {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-card {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .chart-heading h3 {
+        font-size: 15px;
+    }
+
+    .chart-heading p {
+        font-size: 12px;
+    }
+
+    .chart-container {
+        height: 250px;
+    }
+
+    .chart-doughnut {
+        height: 260px;
+    }
+}
