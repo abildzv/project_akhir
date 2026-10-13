@@ -169,13 +169,18 @@
                             </div>
 
                             <p class="stat-label">{{ $item['label'] }}</p>
+
                             <h3>
                                 {{ $item['nilai'] }}
+
                                 @if ($item['label'] === 'Sisa Hari PKL')
                                     <small>hari</small>
                                 @endif
                             </h3>
-                            <p class="stat-description">{{ $item['keterangan'] }}</p>
+
+                            <p class="stat-description">
+                                {{ $item['keterangan'] }}
+                            </p>
                         </article>
                     @endforeach
                 </div>
@@ -225,17 +230,26 @@
 
                     <div class="detail-list">
                         <div class="detail-row">
-                            <span><i class="ti ti-calendar-event"></i> Mulai PKL</span>
+                            <span>
+                                <i class="ti ti-calendar-event"></i>
+                                Mulai PKL
+                            </span>
                             <strong>{{ $pkl['tanggal_mulai'] }}</strong>
                         </div>
 
                         <div class="detail-row">
-                            <span><i class="ti ti-calendar-check"></i> Selesai PKL</span>
+                            <span>
+                                <i class="ti ti-calendar-check"></i>
+                                Selesai PKL
+                            </span>
                             <strong>{{ $pkl['tanggal_selesai'] }}</strong>
                         </div>
 
                         <div class="detail-row">
-                            <span><i class="ti ti-user-check"></i> Pembimbing</span>
+                            <span>
+                                <i class="ti ti-user-check"></i>
+                                Pembimbing
+                            </span>
                             <strong>{{ $pkl['pembimbing'] }}</strong>
                         </div>
                     </div>
@@ -405,15 +419,128 @@
     </main>
 </div>
 
-{{-- Data grafik dikirim dari controller ke file JavaScript --}}
+{{-- Library Chart.js --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{{-- Data dan konfigurasi grafik --}}
 <script>
-    window.dashboardPKL = {
-        grafikLaporan: @json($grafikLaporan),
-        grafikStatusLaporan: @json($grafikStatusLaporan)
-    };
+document.addEventListener('DOMContentLoaded', function () {
+    const canvasProgres = document.getElementById('grafikLaporan');
+    const canvasStatus = document.getElementById('grafikStatusLaporan');
+
+    // Data grafik progres laporan
+    const labelsProgres = {{ Illuminate\Support\Js::from(
+        $grafikLaporan['labels'] ?? [
+            'Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4',
+            'Minggu 5', 'Minggu 6', 'Minggu 7', 'Minggu 8'
+        ]
+    ) }};
+
+    const dataProgres = {{ Illuminate\Support\Js::from(
+        $grafikLaporan['data'] ?? [1, 2, 3, 4, 5, 6, 7, 8]
+    ) }};
+
+    // Data grafik status laporan
+    data: {
+    labels: ['Terkirim', 'Diproses', 'Perlu Revisi'],
+    datasets: [{
+        data: [5, 3, 2],
+        backgroundColor: [
+            '#2563eb',
+            '#16a34a',
+            '#f59e0b'
+        ],
+        borderWidth: 0
+    }]
+}
+    // Grafik progres laporan
+    if (canvasProgres && typeof Chart !== 'undefined') {
+        new Chart(canvasProgres, {
+            type: 'line',
+
+            data: {
+                labels: labelsProgres,
+
+                datasets: [{
+                    label: 'Jumlah Laporan',
+                    data: dataProgres,
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.12)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointBackgroundColor: '#2563eb',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2,
+                    borderWidth: 3
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        align: 'start'
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Grafik ringkasan status laporan
+    if (canvasStatus && typeof Chart !== 'undefined') {
+        new Chart(canvasStatus, {
+            type: 'doughnut',
+
+            data: {
+                labels: ['Terkirim', 'Diproses', 'Perlu Revisi'],
+
+                datasets: [{
+                    data: dataStatus,
+                    backgroundColor: [
+                        '#2563eb',
+                        '#16a34a',
+                        '#f59e0b'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+});
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ asset('js/dashboard-siswa.js') }}"></script>
 
 </body>
