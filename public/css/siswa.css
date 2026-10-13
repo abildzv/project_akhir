@@ -1,7 +1,7 @@
 /* =========================================================
    DATA SISWA
    File: public/css/siswa.css
-   Tema: sama dengan Dashboard Admin (ungu, putih, lavender)
+   Tema: sama dengan Dashboard Admin (biru, putih, lavender)
 
    CATATAN: file ini memakai variabel warna dari admin.css
    (--primary, --lavender, --ink, --line, dst). Pastikan
@@ -50,7 +50,7 @@
     color: #fff;
     background:
         radial-gradient(circle at 85% 20%, rgba(255, 255, 255, .22), transparent 38%),
-        linear-gradient(120deg, #4B38B8 0%, #6551D9 55%, #8B79F5 100%);
+        linear-gradient(120deg, #1D4ED8 0%, #2563EB 55%, #3B82F6 100%);
     box-shadow: var(--shadow-md);
 }
 
@@ -244,18 +244,18 @@
     padding: 0 14px;
     border: 1px solid var(--line);
     border-radius: 12px;
-    background: #FAFAFF;
+    background: #F8FAFC;
     transition: border-color .2s, box-shadow .2s, background .2s;
 }
 
 .siswa-search-input:focus-within {
     border-color: var(--primary);
     background: #fff;
-    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
 }
 
 .siswa-search-input i {
-    color: #A3A8C3;
+    color: #94A3B8;
 }
 
 .siswa-search-input input {
@@ -270,7 +270,7 @@
 }
 
 .siswa-search-input input::placeholder {
-    color: #A3A8C3;
+    color: #94A3B8;
 }
 
 /* Tombol Cari & Reset */
@@ -292,11 +292,11 @@
     transition: .2s ease;
 }
 
-/* Tombol Cari (ungu) */
+/* Tombol Cari (biru) */
 .siswa-search button {
-    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    background: linear-gradient(135deg, var(--primary), #3B82F6);
     color: #fff;
-    box-shadow: 0 8px 18px rgba(101, 81, 217, .28);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, .28);
 }
 
 .siswa-search button:hover {
@@ -346,7 +346,7 @@
 .siswa-table tbody td {
     padding: 13px 14px;
     border: 0;
-    background: #FAFAFF;
+    background: #F8FAFC;
     color: var(--text);
     font-size: 13px;
     font-weight: 500;
@@ -384,7 +384,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #E4DFFC;
+    background: #DBEAFE;
     color: var(--primary);
     font-size: 13px;
     font-weight: 800;
@@ -465,15 +465,15 @@
 /* Halaman aktif */
 .siswa-pagination .page-item.active .page-link {
     border-color: var(--primary);
-    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    background: linear-gradient(135deg, var(--primary), #3B82F6);
     color: #fff;
-    box-shadow: 0 6px 14px rgba(101, 81, 217, .3);
+    box-shadow: 0 6px 14px rgba(37, 99, 235, .3);
 }
 
 /* Halaman nonaktif */
 .siswa-pagination .page-item.disabled .page-link {
-    background: #FAFAFF;
-    color: #A3A8C3;
+    background: #F8FAFC;
+    color: #94A3B8;
 }
 
 
@@ -598,7 +598,7 @@
 .siswa-page button:focus-visible,
 .siswa-page a:focus-visible,
 .siswa-page input:focus-visible {
-    outline: 3px solid rgba(101, 81, 217, .35);
+    outline: 3px solid rgba(37, 99, 235, .35);
     outline-offset: 2px;
 }
 

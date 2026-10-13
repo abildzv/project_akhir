@@ -1,0 +1,684 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* =========================================================
+   PKL Online - Halaman Login & Daftar
+   File: public/css/auth.css
+   Tema: biru (sama dengan dashboard admin)
+
+   Susunan: kartu besar berisi dua panel.
+   - Panel kiri  : putih berbentuk lengkung organik + ilustrasi
+   - Panel kanan : biru tua berisi formulir
+
+   DAFTAR ISI
+   01. Variabel
+   02. Dasar
+   03. Halaman & kartu
+   04. Bentuk lengkung (SVG)
+   05. Panel kiri
+   06. Ilustrasi
+   07. Panel kanan (formulir)
+   08. Input
+   09. Tombol & tautan
+   10. Notifikasi
+   11. Animasi
+   12. Responsive
+   ========================================================= */
+
+
+/* =========================================================
+   01. VARIABEL
+   ========================================================= */
+:root {
+    --primary: #2563EB;
+    --primary-dark: #1D4ED8;
+    --primary-light: #EFF6FF;
+    --sky: #93C5FD;              /* biru muda (tautan, aksen) */
+    --navy: #0F2A6E;             /* biru tua (panel form) */
+    --navy-deep: #0A1B4A;        /* biru paling tua (latar halaman) */
+    --ink: #0F172A;
+    --muted: #64748B;
+    --radius-card: 36px;
+}
+
+
+/* =========================================================
+   02. DASAR
+   ========================================================= */
+* { box-sizing: border-box; }
+
+html { min-height: 100%; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    background: var(--navy-deep);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input { font: inherit; }
+
+a { text-decoration: none; }
+
+
+/* =========================================================
+   03. HALAMAN & KARTU
+   ========================================================= */
+
+/* Latar halaman biru tua dengan lengkung dan gelembung lembut */
+.auth-page {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 10% 92%, rgba(37, 99, 235, .38) 0, transparent 32%),
+        radial-gradient(circle at 94% 8%, rgba(59, 130, 246, .28) 0, transparent 30%),
+        linear-gradient(160deg, #0B1F52 0%, #0F2A6E 55%, #0A1B4A 100%);
+}
+
+/* Gelembung dekoratif di latar */
+.auth-page::before,
+.auth-page::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background: rgba(147, 197, 253, .1);
+    box-shadow: 0 0 0 28px rgba(147, 197, 253, .04);
+}
+
+.auth-page::before {
+    width: 120px;
+    height: 120px;
+    top: 7%;
+    left: 6%;
+}
+
+.auth-page::after {
+    width: 180px;
+    height: 180px;
+    bottom: 6%;
+    right: 5%;
+}
+
+/* Kartu utama */
+.auth-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1060px;
+    /* Tinggi kartu sama untuk Login & Daftar, menyesuaikan tinggi layar:
+       minimal 480px, maksimal 660px, selalu menyisakan ruang 56px agar tidak ter-scroll */
+    min-height: clamp(480px, calc(100vh - 56px), 660px);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: linear-gradient(165deg, #12347F 0%, #0F2A6E 60%, #0C2358 100%);
+    box-shadow: 0 35px 90px rgba(0, 0, 0, .4);
+}
+
+
+/* =========================================================
+   04. BENTUK LENGKUNG (SVG putih di belakang panel kiri)
+   ========================================================= */
+.auth-shape {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    filter: drop-shadow(10px 0 26px rgba(0, 0, 0, .22));
+}
+
+
+/* =========================================================
+   05. PANEL KIRI (di atas bentuk putih)
+   ========================================================= */
+.auth-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 26px 34px 22px;
+    color: var(--ink);
+}
+
+/* Logo + nama aplikasi */
+.brand,
+.mobile-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+.brand { color: var(--navy); }
+
+.brand strong,
+.mobile-brand strong { font-weight: 500; }
+
+/* Kotak ikon logo */
+.brand-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 19px;
+    background: linear-gradient(135deg, var(--primary), #3B82F6);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, .35);
+}
+
+/* Isi tengah: ilustrasi + teks pendek */
+.visual-content {
+    flex: 1;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.visual-caption {
+    margin: 12px 0 6px;
+    color: var(--navy);
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -.6px;
+}
+
+.visual-text {
+    max-width: 340px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Teks kecil di kiri bawah */
+.visual-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: auto;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   06. ILUSTRASI (dibuat dari bentuk CSS + ikon)
+   ========================================================= */
+.visual-illustration {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 340px;
+    height: 232px;
+    margin: 0 auto;
+}
+
+/* Bentuk organik besar di belakang */
+.illus-blob {
+    position: absolute;
+    border-radius: 58% 42% 52% 48% / 55% 45% 55% 45%;
+}
+
+.blob-back {
+    width: 290px;
+    height: 214px;
+    background: linear-gradient(145deg, #DCE9FF 0%, #EAF2FF 100%);
+    box-shadow: 0 30px 60px rgba(37, 99, 235, .12);
+}
+
+.blob-front {
+    width: 196px;
+    height: 164px;
+    transform: translate(6px, 10px);
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 28%, #D3E3FF 0%, #BCD3FF 75%);
+    opacity: .75;
+}
+
+/* Gelembung kecil */
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(147, 197, 253, .28);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, .08);
+}
+
+.bubble.b1 { width: 30px; height: 30px; top: 8px;     left: 4%; }
+.bubble.b2 { width: 46px; height: 46px; top: 46%;     left: -2%; }
+.bubble.b3 { width: 22px; height: 22px; bottom: 6px;  left: 26%; }
+.bubble.b4 { width: 38px; height: 38px; top: 30%;     right: -2%; }
+.bubble.b5 { width: 58px; height: 58px; bottom: -4px; right: 6%; }
+
+/* Kartu kaca di tengah */
+.illustration-card {
+    position: relative;
+    z-index: 2;
+    width: 172px;
+    padding: 20px 12px 16px;
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 24px 50px rgba(15, 42, 110, .2);
+    text-align: center;
+    transform: rotate(-4deg);
+}
+
+.illustration-card > i {
+    color: var(--primary);
+    font-size: 38px;
+    line-height: 1;
+}
+
+.illustration-card h3 {
+    margin: 8px 0 3px;
+    color: var(--navy);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.illustration-card span {
+    color: var(--muted);
+    font-size: 9.5px;
+}
+
+/* Kotak ikon melayang */
+.floating-icon {
+    --r: 0deg;
+    position: absolute;
+    z-index: 3;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    font-size: 20px;
+    transform: rotate(var(--r));
+    box-shadow: 0 14px 28px rgba(15, 42, 110, .25);
+}
+
+/* Kotak biru tua di kanan atas */
+.floating-one {
+    --r: 12deg;
+    top: 4px;
+    right: 12%;
+    color: #fff;
+    background: linear-gradient(145deg, #1E40AF, #0F2A6E);
+    animation: auth-float 6s ease-in-out infinite;
+}
+
+/* Kotak putih di kiri bawah */
+.floating-two {
+    --r: -10deg;
+    left: 9%;
+    bottom: 10px;
+    color: var(--primary);
+    background: #fff;
+    animation: auth-float 7s ease-in-out infinite reverse;
+}
+
+
+/* =========================================================
+   07. PANEL KANAN (FORMULIR)
+   ========================================================= */
+.auth-form-section {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 28px 40px 46px 48px;
+}
+
+.auth-form-wrapper {
+    width: 100%;
+    max-width: 350px;
+}
+
+/* Logo untuk layar kecil (disembunyikan di desktop) */
+.mobile-brand {
+    display: none;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+.mobile-brand .brand-icon {
+    color: var(--primary);
+    background: #fff;
+    box-shadow: none;
+}
+
+/* Judul */
+.form-heading { margin-bottom: 20px; }
+
+.form-eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--sky);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.form-heading h2 {
+    margin: 0 0 6px;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1.2px;
+}
+
+.form-heading p {
+    margin: 0;
+    color: rgba(255, 255, 255, .65);
+    font-size: 12.5px;
+    line-height: 1.6;
+}
+
+/* Teks bantuan di pojok kanan bawah kartu */
+.auth-help {
+    position: absolute;
+    right: 34px;
+    bottom: 16px;
+    z-index: 2;
+    margin: 0;
+    color: rgba(255, 255, 255, .55);
+    font-size: 10px;
+    text-align: right;
+}
+
+
+/* =========================================================
+   08. INPUT (bentuk kapsul)
+   ========================================================= */
+.auth-field { margin-bottom: 14px; }
+
+.auth-field label {
+    display: block;
+    margin-bottom: 6px;
+    padding-left: 4px;
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: rgba(4, 14, 46, .45);
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.input-wrapper:focus-within {
+    border-color: var(--sky);
+    background: rgba(4, 14, 46, .7);
+    box-shadow: 0 0 0 4px rgba(147, 197, 253, .18);
+}
+
+.input-wrapper > i {
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, .55);
+    font-size: 16px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    font-size: 12.5px;
+}
+
+.input-wrapper input::placeholder {
+    color: rgba(255, 255, 255, .5);
+}
+
+/* Cegah isian otomatis browser mengubah warna input jadi putih */
+.input-wrapper input:-webkit-autofill {
+    -webkit-text-fill-color: #fff;
+    caret-color: #fff;
+    box-shadow: 0 0 0 100px #07173F inset;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Tombol mata (tampilkan password) */
+.toggle-password {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    padding: 4px;
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, .55);
+    font-size: 16px;
+    cursor: pointer;
+    transition: color .2s;
+}
+
+.toggle-password:hover { color: #fff; }
+
+
+/* =========================================================
+   09. TOMBOL & TAUTAN
+   ========================================================= */
+.btn-auth {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 46px;
+    margin-top: 20px;
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(100deg, var(--primary), #3B82F6);
+    color: #fff;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 12px 26px rgba(37, 99, 235, .45);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.btn-auth:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(37, 99, 235, .55);
+}
+
+.btn-auth i { font-size: 18px; }
+
+/* Tautan pindah halaman (Login <-> Daftar) */
+.auth-switch {
+    margin: 16px 0 10px;
+    color: rgba(255, 255, 255, .85);
+    font-size: 12.5px;
+    text-align: center;
+}
+
+.auth-switch a {
+    color: var(--sky);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.auth-switch a:hover { color: #fff; }
+
+/* Catatan kecil */
+.auth-note {
+    margin: 0;
+    color: rgba(255, 255, 255, .5);
+    font-size: 10px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+
+/* =========================================================
+   10. NOTIFIKASI
+   ========================================================= */
+.auth-form-wrapper .alert {
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 16px;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.auth-form-wrapper .alert-danger {
+    background: rgba(244, 63, 94, .18);
+    color: #FECDD3;
+}
+
+.auth-form-wrapper .alert-success {
+    background: rgba(34, 197, 94, .18);
+    color: #BBF7D0;
+}
+
+
+/* =========================================================
+   11. ANIMASI
+   ========================================================= */
+@keyframes auth-float {
+    0%, 100% { transform: rotate(var(--r)) translateY(0); }
+    50%      { transform: rotate(var(--r)) translateY(-9px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .floating-icon { animation: none; }
+    * { transition: none !important; }
+}
+
+
+/* =========================================================
+   12. RESPONSIVE
+   ========================================================= */
+
+/* Tablet */
+@media (max-width: 1000px) {
+    .auth-page { padding: 24px; }
+
+    .auth-visual { padding: 28px 24px 24px; }
+
+    .auth-form-section { padding: 26px 26px 44px 36px; }
+
+    .form-heading h2 { font-size: 32px; }
+
+    .visual-illustration {
+        height: 210px;
+        transform: scale(.9);
+    }
+
+    .visual-caption { font-size: 16px; }
+
+    .auth-help { right: 28px; }
+}
+
+/* HP: panel kiri dan bentuk lengkung disembunyikan */
+@media (max-width: 760px) {
+    .auth-page { padding: 16px; }
+
+    .auth-container {
+        display: block;
+        min-height: auto;
+        max-width: 480px;
+        border-radius: 28px;
+    }
+
+    .auth-shape,
+    .auth-visual { display: none; }
+
+    .auth-form-section { padding: 36px 26px 24px; }
+
+    .mobile-brand { display: flex; }
+
+    .form-heading h2 { font-size: 34px; }
+
+    .auth-help {
+        position: static;
+        padding: 0 26px 26px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 380px) {
+    .auth-form-section { padding: 28px 19px 20px; }
+
+    .mobile-brand { font-size: 17px; }
+
+    .form-heading h2 { font-size: 29px; }
+}
+
+
+/* =========================================================
+   13. LAYAR PENDEK (laptop): dipadatkan agar muat satu layar
+   ========================================================= */
+@media (min-width: 761px) and (max-height: 760px) {
+    .auth-page { padding: 14px; }
+
+    .auth-form-section { padding-top: 20px; padding-bottom: 36px; }
+
+    .form-eyebrow,
+    .auth-note { display: none; }
+
+    .form-heading { margin-bottom: 14px; }
+    .form-heading h2 { font-size: 30px; }
+
+    .auth-field { margin-bottom: 11px; }
+    .input-wrapper { min-height: 42px; }
+
+    .btn-auth { margin-top: 16px; min-height: 44px; }
+    .auth-switch { margin: 12px 0 0; }
+
+    .visual-illustration { height: 205px; }
+    .auth-visual { padding-top: 22px; padding-bottom: 18px; }
+}
+
+@media (min-width: 761px) and (max-height: 640px) {
+    .visual-text,
+    .form-heading p { display: none; }
+
+    .visual-illustration {
+        height: 175px;
+        transform: scale(.85);
+    }
+
+    .auth-field { margin-bottom: 9px; }
+}

@@ -1,7 +1,7 @@
 /* =========================================================
    HALAMAN LAPORAN PKL
    File: public/css/laporan.css
-   Tema: sama dengan Dashboard Admin (ungu, putih, lavender)
+   Tema: sama dengan Dashboard Admin (biru, putih, lavender)
 
    CATATAN: file ini memakai variabel warna dari admin.css
    (--primary, --lavender, --ink, --line, dst). Pastikan
@@ -51,7 +51,7 @@
     color: #fff;
     background:
         radial-gradient(circle at 85% 20%, rgba(255, 255, 255, .22), transparent 38%),
-        linear-gradient(120deg, #4B38B8 0%, #6551D9 55%, #8B79F5 100%);
+        linear-gradient(120deg, #1D4ED8 0%, #2563EB 55%, #3B82F6 100%);
     box-shadow: var(--shadow-md);
 }
 
@@ -104,7 +104,41 @@
     line-height: 1.6;
 }
 
-/* Tombol Cetak (putih di atas banner ungu) */
+/* Pembungkus tombol Cetak + ikon di kanan banner */
+.laporan-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+/* Kotak ikon kaca di kanan banner */
+.laporan-header-icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    font-size: 34px;
+    transform: rotate(-6deg);
+}
+
+@media (max-width: 600px) {
+    .laporan-header-icon {
+        display: none;
+    }
+}
+
+@media print {
+    .laporan-header-icon {
+        display: none !important;
+    }
+}
+
+/* Tombol Cetak (putih di atas banner biru) */
 .btn-cetak {
     display: inline-flex;
     align-items: center;
@@ -118,13 +152,13 @@
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 8px 18px rgba(32, 23, 71, .2);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, .2);
     transition: transform .2s, box-shadow .2s;
 }
 
 .btn-cetak:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(32, 23, 71, .28);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, .28);
 }
 
 
@@ -259,15 +293,15 @@
     padding: 0 14px;
     border: 1px solid var(--line);
     border-radius: 12px;
-    background: #FAFAFF;
-    color: #A3A8C3;
+    background: #F8FAFC;
+    color: #94A3B8;
     transition: border-color .2s, box-shadow .2s, background .2s;
 }
 
 .search-box:focus-within {
     border-color: var(--primary);
     background: #fff;
-    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
 }
 
 .search-box input {
@@ -282,7 +316,7 @@
 }
 
 .search-box input::placeholder {
-    color: #A3A8C3;
+    color: #94A3B8;
 }
 
 /* Dropdown filter */
@@ -292,7 +326,7 @@
     outline: none;
     border: 1px solid var(--line);
     border-radius: 12px;
-    background-color: #FAFAFF;
+    background-color: #F8FAFC;
     color: var(--text);
     font-family: inherit;
     font-size: 13px;
@@ -302,7 +336,7 @@
 
 .laporan-filter select:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
 }
 
 /* Tombol Filter & Reset */
@@ -324,11 +358,11 @@
     transition: .2s ease;
 }
 
-/* Tombol Filter (ungu) */
+/* Tombol Filter (biru) */
 .btn-filter {
-    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    background: linear-gradient(135deg, var(--primary), #3B82F6);
     color: #fff;
-    box-shadow: 0 8px 18px rgba(101, 81, 217, .28);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, .28);
 }
 
 .btn-filter:hover {
@@ -383,7 +417,7 @@
 .laporan-table tbody td {
     padding: 14px;
     border: 0;
-    background: #FAFAFF;
+    background: #F8FAFC;
     color: var(--text);
     font-size: 13px;
     font-weight: 500;
@@ -509,15 +543,15 @@
 /* Halaman aktif */
 .laporan-pagination .page-item.active .page-link {
     border-color: var(--primary);
-    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    background: linear-gradient(135deg, var(--primary), #3B82F6);
     color: #fff;
-    box-shadow: 0 6px 14px rgba(101, 81, 217, .3);
+    box-shadow: 0 6px 14px rgba(37, 99, 235, .3);
 }
 
 /* Halaman nonaktif */
 .laporan-pagination .page-item.disabled .page-link {
-    background: #FAFAFF;
-    color: #A3A8C3;
+    background: #F8FAFC;
+    color: #94A3B8;
 }
 
 
@@ -672,7 +706,7 @@
 .laporan-page a:focus-visible,
 .laporan-page input:focus-visible,
 .laporan-page select:focus-visible {
-    outline: 3px solid rgba(101, 81, 217, .35);
+    outline: 3px solid rgba(37, 99, 235, .35);
     outline-offset: 2px;
 }
 

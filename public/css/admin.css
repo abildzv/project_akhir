@@ -1,22 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* =========================================================
+   PKL Online - Admin Dashboard
+   File: public/css/admin.css
+
+   DAFTAR ISI
+   01. Variabel (warna, radius, bayangan)
+   02. Reset & dasar
+   03. Layout utama (wrapper)
+   04. Sidebar
+   05. Topbar, konten, footer
+   06. Banner selamat datang
+   07. Kartu statistik
+   08. Grid dashboard & panel
+   09. Grafik garis (Statistik Pengajuan PKL)
+   10. Diagram donat (Status Pengajuan)
+   11. Tabel pengajuan terbaru
+   12. Badge status
+   13. Aktivitas terbaru
+   14. Responsive
+   ========================================================= */
+
+
+/* =========================================================
    01. VARIABEL
    Ubah warna tema cukup dari sini
    ========================================================= */
 :root {
     /* Warna utama */
-    --primary: #6551D9;          /* ungu utama */
-    --primary-dark: #4B38B8;     /* ungu gelap */
-    --primary-soft: #EFECFD;     /* ungu sangat muda (latar ikon/badge) */
-    --lavender: #A99AFB;         /* lavender (garis Disetujui) */
+    --primary: #2563EB;          /* biru utama */
+    --primary-dark: #1D4ED8;     /* biru gelap */
+    --primary-soft: #EFF6FF;     /* biru sangat muda (latar ikon/badge) */
+    --lavender: #93C5FD;         /* biru muda (garis Disetujui) */
+    --navy: #0F2A6E;             /* biru tua (sidebar) */
 
     /* Warna teks & latar */
-    --ink: #201747;              /* judul */
-    --text: #3A3F5C;             /* teks biasa */
-    --muted: #7B82A3;            /* teks sekunder */
-    --line: #ECEBFA;             /* garis pembatas */
-    --bg: #F5F4FD;               /* latar halaman */
+    --ink: #0F172A;              /* judul */
+    --text: #334155;             /* teks biasa */
+    --muted: #64748B;            /* teks sekunder */
+    --line: #E2E8F0;             /* garis pembatas */
+    --bg: #F5F7FB;               /* latar halaman */
     --card: #FFFFFF;             /* latar kartu */
 
     /* Warna ikon & status */
@@ -31,8 +54,8 @@
     --radius-sm: 10px;
 
     /* Bayangan */
-    --shadow-sm: 0 1px 2px rgba(32, 23, 71, .04), 0 4px 14px rgba(101, 81, 217, .06);
-    --shadow-md: 0 10px 30px rgba(101, 81, 217, .14);
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, .04), 0 4px 14px rgba(37, 99, 235, .06);
+    --shadow-md: 0 10px 30px rgba(37, 99, 235, .14);
 
     /* Lebar sidebar */
     --sidebar-w: 264px;
@@ -59,7 +82,7 @@ a { text-decoration: none; }
 
 /* Outline saat navigasi keyboard */
 :focus-visible {
-    outline: 3px solid rgba(101, 81, 217, .35);
+    outline: 3px solid rgba(37, 99, 235, .35);
     outline-offset: 2px;
 }
 
@@ -74,6 +97,7 @@ a { text-decoration: none; }
     min-height: 100vh;
 }
 
+
 /* =========================================================
    04. SIDEBAR (gaya tab melengkung)
    Ganti seluruh bagian 04 di admin.css dengan isi ini
@@ -82,7 +106,7 @@ a { text-decoration: none; }
 /* Kotak sidebar (menempel di kiri saat scroll) */
 .admin-sidebar {
     /* Variabel khusus sidebar: ubah di sini untuk ganti tampilan */
-    --sidebar-bg: var(--primary);   /* warna sidebar (mau biru? ganti #1E4DFF) */
+    --sidebar-bg: var(--navy);      /* warna sidebar (biru tua) */
     --tab-bg: var(--bg);            /* HARUS sama dengan warna latar halaman */
     --corner: 20px;                 /* besar lengkungan tab */
 
@@ -221,26 +245,6 @@ a { text-decoration: none; }
 
 
 /* =========================================================
-   TAMBAHAN di dalam @media (max-width: 900px)
-   (sidebar jadi bar horizontal, tab melengkung dimatikan)
-   Tempel di dalam blok media yang sudah ada
-   ========================================================= */
-/*
-    .admin-sidebar { padding: 14px 16px; }
-    .brand { margin: 0 auto 0 0; }
-
-    .sidebar-link { padding: 10px 12px; border-radius: 10px; }
-
-    .sidebar-link.active {
-        color: #fff;
-        background: rgba(255, 255, 255, .22);
-    }
-
-    .sidebar-link.active::before,
-    .sidebar-link.active::after { display: none; }
-*/
-
-/* =========================================================
    05. TOPBAR, KONTEN, FOOTER
    ========================================================= */
 
@@ -262,10 +266,9 @@ a { text-decoration: none; }
     justify-content: space-between;
     gap: 16px;
     padding: 16px 32px;
-    background: rgba(245, 244, 253, .45);
-    -webkit-backdrop-filter: blur(14px) saturate(160%);
-    backdrop-filter: blur(10px) saturate(160%);
-    border-bottom: 1px solid rgba(236, 235, 250, .6);
+    background: rgba(245, 247, 251, .85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
 }
 
 .topbar-caption { font-size: 12px; font-weight: 500; color: var(--muted); }                        /* teks kecil di atas judul */
@@ -313,7 +316,7 @@ a { text-decoration: none; }
    06. BANNER SELAMAT DATANG
    ========================================================= */
 
-/* Kotak banner gradasi ungu */
+/* Kotak banner gradasi biru */
 .welcome-section {
     position: relative;
     overflow: hidden;
@@ -327,7 +330,7 @@ a { text-decoration: none; }
     color: #fff;
     background:
         radial-gradient(circle at 85% 20%, rgba(255, 255, 255, .22), transparent 38%),
-        linear-gradient(120deg, #4B38B8 0%, #6551D9 55%, #8B79F5 100%);
+        linear-gradient(120deg, #1D4ED8 0%, #2563EB 55%, #3B82F6 100%);
     box-shadow: var(--shadow-md);
 }
 
@@ -557,7 +560,7 @@ a { text-decoration: none; }
     white-space: nowrap;
     color: var(--muted);
     border: 1px solid var(--line);
-    background: #FAFAFF;
+    background: #F8FAFC;
 }
 
 /* Keterangan warna garis (Pengajuan / Disetujui) */
@@ -652,7 +655,7 @@ a { text-decoration: none; }
     gap: 12px;
     padding: 10px 14px;
     border-radius: var(--radius-sm);
-    background: #FAFAFF;
+    background: #F8FAFC;
     border: 1px solid var(--line);
 }
 
@@ -697,7 +700,7 @@ a { text-decoration: none; }
     padding: 12px 14px;
     border: 0;
     font-weight: 500;
-    background: #FAFAFF;
+    background: #F8FAFC;
     color: var(--text);
 }
 
@@ -707,6 +710,14 @@ a { text-decoration: none; }
 
 /* Baris saat disorot kursor */
 .admin-table tbody tr:hover td { background: var(--primary-soft); }
+
+/* Kolom Nama, Tanggal, dan Status tidak boleh turun ke baris baru
+   (kolom Instansi tetap boleh membungkus teks) */
+.admin-table tbody td:nth-child(1),
+.admin-table tbody td:nth-child(3),
+.admin-table tbody td:nth-child(4) {
+    white-space: nowrap;
+}
 
 /* Sel nama siswa (avatar + nama) */
 .student-cell {
@@ -729,7 +740,7 @@ a { text-decoration: none; }
     font-weight: 800;
     font-size: 14px;
     color: var(--primary);
-    background: #E4DFFC;
+    background: #DBEAFE;
 }
 
 
@@ -805,7 +816,7 @@ a { text-decoration: none; }
     color: var(--muted);
 }
 
-.recent-info small { font-size: 11.5px; color: #A3A8C3; }
+.recent-info small { font-size: 11.5px; color: #94A3B8; }
 
 
 /* =========================================================
@@ -864,77 +875,4 @@ a { text-decoration: none; }
 /* Hormati pengguna yang mematikan animasi */
 @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; scroll-behavior: auto !important; }
-}
-
-/* =========================================================
-   15. TRANSISI ANTAR HALAMAN (DI MENU SIDEBAR)
-   ========================================================= */
-
-/* ---------- A. View Transitions (Chrome, Edge, Safari terbaru) ---------- */
-
-/* Aktifkan transisi otomatis saat pindah halaman (link biasa, tanpa JS) */
-@view-transition {
-    navigation: auto;
-}
-
-/* Sidebar dianggap satu elemen tetap: tidak ikut berkedip saat pindah */
-.admin-sidebar {
-    view-transition-name: sidebar;
-}
-
-/* Tab menu aktif "meluncur" dari menu lama ke menu baru */
-.sidebar-link.active {
-    view-transition-name: active-tab;
-}
-
-/* Isi halaman: pudar + naik tipis */
-::view-transition-old(root) {
-    animation: pt-fade-out .22s ease both;
-}
-
-::view-transition-new(root) {
-    animation: pt-fade-in .32s ease both;
-}
-
-/* Kecepatan & gaya luncur tab aktif */
-::view-transition-group(active-tab) {
-    animation-duration: .38s;
-    animation-timing-function: cubic-bezier(.4, 0, .2, 1);
-}
-
-/* Sidebar tidak dianimasikan sama sekali */
-::view-transition-group(sidebar),
-::view-transition-old(sidebar),
-::view-transition-new(sidebar) {
-    animation: none;
-    mix-blend-mode: normal;
-}
-
-@keyframes pt-fade-out {
-    to { opacity: 0; transform: translateY(-6px); }
-}
-
-@keyframes pt-fade-in {
-    from { opacity: 0; transform: translateY(10px); }
-}
-
-
-/* ---------- B. Cadangan untuk browser yang belum mendukung ---------- */
-/* Isi halaman muncul dengan animasi naik + pudar saat dimuat */
-@supports not (view-transition-name: none) {
-    .page-content {
-        animation: pt-fade-in .4s ease both;
-    }
-}
-
-
-/* ---------- C. Hormati pengguna yang mematikan animasi ---------- */
-@media (prefers-reduced-motion: reduce) {
-    @view-transition {
-        navigation: none;
-    }
-
-    .page-content {
-        animation: none;
-    }
 }
