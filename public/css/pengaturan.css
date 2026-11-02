@@ -1,0 +1,458 @@
+/* =========================================================
+   PENGATURAN
+   File: public/css/pengaturan.css
+   Tema: sama dengan Dashboard Admin (ungu, putih, lavender)
+
+   CATATAN: file ini memakai variabel warna dari admin.css
+   (--primary, --lavender, --ink, --line, dst). Pastikan
+   admin.css dimuat lebih dulu (sudah ada di layouts/admin).
+
+   DAFTAR ISI
+   01. Dasar halaman
+   02. Header halaman (banner)
+   03. Notifikasi (sukses / error)
+   04. Layout kartu
+   05. Kepala kartu
+   06. Pratinjau profil
+   07. Formulir
+   08. Tombol simpan
+   09. Informasi sistem
+   10. Responsif
+   11. Aksesibilitas
+   ========================================================= */
+
+
+/* =========================================================
+   01. DASAR HALAMAN
+   ========================================================= */
+.pengaturan-page {
+    color: var(--text);
+    font-family: inherit;   /* ikut Plus Jakarta Sans dari admin.css */
+    padding: 0 0 30px;
+}
+
+
+/* =========================================================
+   02. HEADER HALAMAN (banner gradasi seperti dashboard)
+   ========================================================= */
+
+/* Kotak banner */
+.pengaturan-header {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding: 28px 34px;
+    border-radius: var(--radius-lg);
+    color: #fff;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(255, 255, 255, .22), transparent 38%),
+        linear-gradient(120deg, #4B38B8 0%, #6551D9 55%, #8B79F5 100%);
+    box-shadow: var(--shadow-md);
+}
+
+/* Hiasan lingkaran di pojok banner */
+.pengaturan-header::after {
+    content: '';
+    position: absolute;
+    right: 90px;
+    bottom: -90px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 38px solid rgba(255, 255, 255, .08);
+    pointer-events: none;
+}
+
+.pengaturan-header > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Label kecil di atas judul */
+.pengaturan-eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .18);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+/* Judul */
+.pengaturan-header h1 {
+    margin: 0 0 6px;
+    color: #fff;
+    font-size: clamp(22px, 2vw, 28px);
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+/* Deskripsi */
+.pengaturan-header p {
+    margin: 0;
+    max-width: 480px;
+    color: rgba(255, 255, 255, .85);
+    font-size: 13.5px;
+    line-height: 1.6;
+}
+
+/* Kotak ikon kaca di kanan banner */
+.pengaturan-header-icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    font-size: 34px;
+    transform: rotate(-6deg);
+}
+
+
+/* =========================================================
+   03. NOTIFIKASI (sukses / error)
+   ========================================================= */
+.pengaturan-page .alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border: 0;
+    border-radius: 14px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Sukses */
+.pengaturan-page .alert-success {
+    background: var(--green-soft);
+    color: #12945F;
+}
+
+/* Error validasi */
+.pengaturan-page .alert-danger {
+    background: var(--red-soft);
+    color: #D63A50;
+}
+
+.pengaturan-page .alert ul {
+    padding-left: 18px;
+    margin: 0;
+}
+
+
+/* =========================================================
+   04. LAYOUT KARTU
+   ========================================================= */
+
+/* Grid 2 kolom (kartu Informasi Sistem memanjang penuh) */
+.pengaturan-layout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* Kartu putih */
+.pengaturan-card {
+    padding: 26px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+}
+
+
+/* =========================================================
+   05. KEPALA KARTU
+   ========================================================= */
+
+/* Ikon + judul kartu */
+.pengaturan-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed var(--line);
+}
+
+/* Kotak ikon (ungu muda = profil) */
+.pengaturan-icon {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 22px;
+}
+
+.pengaturan-icon.keamanan { background: var(--orange-soft); color: #E89A12; }   /* Keamanan */
+.pengaturan-icon.sistem   { background: var(--green-soft);  color: var(--green); } /* Sistem */
+
+.pengaturan-card-header h5 {
+    margin: 0 0 3px;
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -.2px;
+}
+
+.pengaturan-card-header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+
+/* =========================================================
+   06. PRATINJAU PROFIL
+   ========================================================= */
+
+/* Baris avatar + nama */
+.profil-preview {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    background: var(--primary-soft);
+}
+
+/* Avatar inisial */
+.profil-avatar {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), #8B79F5);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    box-shadow: 0 8px 18px rgba(101, 81, 217, .3);
+}
+
+.profil-preview h6 {
+    margin: 0 0 3px;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.profil-preview span {
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+
+/* =========================================================
+   07. FORMULIR
+   ========================================================= */
+.form-group-custom {
+    margin-bottom: 18px;
+}
+
+.form-group-custom label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-group-custom input {
+    display: block;
+    width: 100%;
+    height: 46px;
+    padding: 0 16px;
+    outline: none;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #FAFAFF;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+
+.form-group-custom input:focus {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+}
+
+/* Teks bantuan di bawah input */
+.form-group-custom small {
+    display: block;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   08. TOMBOL SIMPAN
+   ========================================================= */
+.btn-simpan {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 46px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(101, 81, 217, .28);
+    transition: transform .2s, box-shadow .2s, background .2s;
+}
+
+.btn-simpan:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(101, 81, 217, .36);
+}
+
+
+/* =========================================================
+   09. INFORMASI SISTEM
+   ========================================================= */
+
+/* Kartu memanjang penuh */
+.info-sistem-card {
+    grid-column: 1 / -1;
+}
+
+/* Satu baris informasi (berbentuk kapsul seperti tabel) */
+.info-sistem-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 8px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: #FAFAFF;
+    font-size: 13px;
+    transition: background .2s;
+}
+
+.info-sistem-row:hover {
+    background: var(--primary-soft);
+}
+
+.info-sistem-row:last-child {
+    margin-bottom: 0;
+}
+
+/* Label di kiri */
+.info-sistem-row > span:first-child {
+    color: var(--muted);
+    font-weight: 500;
+}
+
+/* Nilai di kanan */
+.info-sistem-row strong {
+    color: var(--ink);
+    font-weight: 700;
+    text-align: right;
+}
+
+/* Pill status Aktif */
+.status-aktif {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--green-soft);
+    color: #12945F;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-aktif i {
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   10. RESPONSIF
+   ========================================================= */
+
+/* Tablet: kartu jadi 1 kolom */
+@media (max-width: 992px) {
+    .pengaturan-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .info-sistem-card {
+        grid-column: auto;
+    }
+}
+
+/* HP */
+@media (max-width: 576px) {
+    .pengaturan-header {
+        padding: 22px 20px;
+    }
+
+    .pengaturan-header h1 {
+        font-size: 22px;
+    }
+
+    .pengaturan-header-icon {
+        display: none;
+    }
+
+    .pengaturan-card {
+        padding: 18px;
+    }
+
+    .btn-simpan {
+        width: 100%;
+    }
+
+    .info-sistem-row {
+        align-items: flex-start;
+    }
+}
+
+
+/* =========================================================
+   11. AKSESIBILITAS
+   ========================================================= */
+.pengaturan-page button:focus-visible,
+.pengaturan-page a:focus-visible,
+.pengaturan-page input:focus-visible {
+    outline: 3px solid rgba(101, 81, 217, .35);
+    outline-offset: 2px;
+}
+
+/* Hormati pengguna yang mematikan animasi */
+@media (prefers-reduced-motion: reduce) {
+    .pengaturan-page * {
+        transition: none !important;
+    }
+}

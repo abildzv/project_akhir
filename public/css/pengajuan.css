@@ -1,7 +1,7 @@
 /* =========================================================
    DATA PENGAJUAN PKL
    File: public/css/pengajuan.css
-   Tema: sama dengan Dashboard Admin (ungu, putih, lavender)
+   Tema: sama dengan Dashboard Admin (biru, putih, lavender)
 
    CATATAN: file ini memakai variabel warna dari admin.css
    (--primary, --lavender, --ink, --line, dst). Pastikan
@@ -59,7 +59,7 @@
     color: #fff;
     background:
         radial-gradient(circle at 85% 20%, rgba(255, 255, 255, .22), transparent 38%),
-        linear-gradient(120deg, #4B38B8 0%, #6551D9 55%, #8B79F5 100%);
+        linear-gradient(120deg, #1D4ED8 0%, #2563EB 55%, #3B82F6 100%);
     box-shadow: var(--shadow-md);
 }
 
@@ -272,7 +272,7 @@
     position: absolute;
     top: 50%;
     left: 15px;
-    color: #A3A8C3;
+    color: #94A3B8;
     font-size: 15px;
     transform: translateY(-50%);
     pointer-events: none;
@@ -285,7 +285,7 @@
     outline: none;
     border: 1px solid var(--line);
     border-radius: 12px;
-    background: #FAFAFF;
+    background: #F8FAFC;
     color: var(--ink);
     font-family: inherit;
     font-size: 13px;
@@ -293,13 +293,13 @@
 }
 
 .pengajuan-search input::placeholder {
-    color: #A3A8C3;
+    color: #94A3B8;
 }
 
 .pengajuan-search input:focus {
     border-color: var(--primary);
     background: #fff;
-    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
 }
 
 /* Dropdown status */
@@ -324,7 +324,7 @@
     outline: none;
     border: 1px solid var(--line);
     border-radius: 12px;
-    background: #FAFAFF;
+    background: #F8FAFC;
     color: var(--text);
     font-family: inherit;
     font-size: 13px;
@@ -334,7 +334,7 @@
 
 .pengajuan-filter-status select:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(101, 81, 217, .12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
 }
 
 /* Tombol Filter & Reset */
@@ -355,11 +355,11 @@
     transition: .2s ease;
 }
 
-/* Tombol Filter (ungu) */
+/* Tombol Filter (biru) */
 .btn-filter {
-    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    background: linear-gradient(135deg, var(--primary), #3B82F6);
     color: #fff;
-    box-shadow: 0 8px 18px rgba(101, 81, 217, .28);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, .28);
 }
 
 .btn-filter:hover {
@@ -418,7 +418,7 @@
 .pengajuan-table tbody td {
     padding: 13px 14px;
     border: 0;
-    background: #FAFAFF;
+    background: #F8FAFC;
     font-weight: 500;
     vertical-align: middle;
     white-space: nowrap;
@@ -454,7 +454,7 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #E4DFFC;
+    background: #DBEAFE;
     color: var(--primary);
     font-size: 13px;
     font-weight: 800;
@@ -606,15 +606,15 @@
 /* Halaman aktif */
 .pengajuan-pagination .page-item.active .page-link {
     border-color: var(--primary);
-    background: linear-gradient(135deg, var(--primary), #7C69EE);
+    background: linear-gradient(135deg, var(--primary), #3B82F6);
     color: #fff;
-    box-shadow: 0 6px 14px rgba(101, 81, 217, .3);
+    box-shadow: 0 6px 14px rgba(37, 99, 235, .3);
 }
 
 /* Halaman nonaktif */
 .pengajuan-pagination .page-item.disabled .page-link {
-    background: #FAFAFF;
-    color: #A3A8C3;
+    background: #F8FAFC;
+    color: #94A3B8;
 }
 
 
@@ -732,7 +732,7 @@
 .pengajuan-page a:focus-visible,
 .pengajuan-page input:focus-visible,
 .pengajuan-page select:focus-visible {
-    outline: 3px solid rgba(101, 81, 217, .35);
+    outline: 3px solid rgba(37, 99, 235, .35);
     outline-offset: 2px;
 }
 
