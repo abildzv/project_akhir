@@ -2618,4 +2618,422 @@ a {
 
 .faq-item:not([open]) summary:hover .faq-toggle::before {
     transform: translate(-50%, -50%) rotate(45deg);
+<<<<<<< HEAD
 }
+=======
+}
+
+/* =====================================================
+   FINAL COLOR REVISION — PKL ONLINE
+   Tema: Modern Blue, Clean & Elegant
+   Letakkan di bagian PALING BAWAH home.css
+===================================================== */
+
+:root {
+    --navy: #172554;
+    --blue: #2563eb;
+    --cyan: #06b6d4;
+    --pale: #eff6ff;
+    --text: #243b60;
+    --muted: #7b8ba5;
+    --line: #e2eaf6;
+}
+
+/* GRADIENT TEXT */
+.gradient-text {
+    background: linear-gradient(110deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* BACKGROUND GLOW */
+.glow-one {
+    background: #93c5fd;
+}
+
+.glow-two {
+    background: #a5f3fc;
+}
+
+/* NAVBAR */
+.navbar {
+    background: rgba(255, 255, 255, .94);
+    border-bottom-color: #e5edf8;
+}
+
+.brand-logo,
+.preview-logo,
+.phone-app-logo {
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+}
+
+.nav-login {
+    background: linear-gradient(110deg, #2563eb, #0891b2);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, .18);
+}
+
+.nav-login:hover {
+    box-shadow: 0 13px 25px rgba(37, 99, 235, .28);
+}
+
+/* HERO */
+.hero-badge {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.badge-pulse {
+    background: #2563eb;
+    box-shadow: 0 0 0 5px rgba(37, 99, 235, .12);
+}
+
+.button-primary {
+    background: linear-gradient(110deg, #2563eb, #0891b2);
+    box-shadow: 0 12px 25px rgba(37, 99, 235, .2);
+}
+
+.button-primary:hover {
+    box-shadow: 0 17px 30px rgba(37, 99, 235, .3);
+}
+
+.button-secondary {
+    border-color: #dce7f5;
+    color: #243b60;
+}
+
+.play-icon,
+.trust-icon {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+/* HERO MOCKUP */
+.dashboard-preview {
+    background: #f5f8ff;
+    box-shadow: 0 25px 45px rgba(23, 37, 84, .16);
+}
+
+.preview-topbar {
+    border-bottom-color: #e5edf8;
+}
+
+.preview-stat {
+    border-color: #e2eaf6;
+}
+
+.preview-stat-icon.blue {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.preview-stat-icon.cyan {
+    color: #0891b2;
+    background: #ecfeff;
+}
+
+.preview-card-heading strong {
+    color: #243b60;
+}
+
+.preview-card-heading > i {
+    color: #2563eb;
+}
+
+.timeline-item.completed .timeline-dot {
+    background: #2563eb;
+}
+
+.timeline-item.current .timeline-dot {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.preview-chart-heading span {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.preview-chart-bars i {
+    background: linear-gradient(180deg, #06b6d4, #2563eb);
+}
+
+/* PHONE MOCKUP */
+.phone-frame {
+    background: linear-gradient(135deg, #3b5685, #172554 55%, #647da7);
+}
+
+.phone-notch {
+    background: #172554;
+}
+
+.phone-screen {
+    background: #f8faff;
+}
+
+.phone-progress-track {
+    background: #e5edf8;
+}
+
+.phone-progress-track span {
+    background: linear-gradient(90deg, #2563eb, #06b6d4);
+}
+
+.phone-task > span {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+/* DECORATION */
+.floating-square {
+    border-color: #60a5fa;
+}
+
+.floating-orbit {
+    border-color: #bfdbfe;
+}
+
+.visual-orbit {
+    border-color: rgba(37, 99, 235, .18);
+}
+
+.floating-icon {
+    border-color: #e0eaff;
+    color: #0891b2;
+    box-shadow: 0 12px 28px rgba(37, 99, 235, .12);
+}
+
+.notification-icon,
+.floating-status-icon {
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+}
+
+/* HIGHLIGHT */
+.highlight-section {
+    background: linear-gradient(100deg, #f5f8ff, #edf6ff);
+    border-block-color: #e2eaf6;
+}
+
+.highlight-icon {
+    color: #2563eb;
+    background: #e5efff;
+}
+
+/* SECTION HEADING */
+.section-eyebrow {
+    color: #2563eb;
+}
+
+.section-eyebrow > span {
+    background: linear-gradient(90deg, #2563eb, #06b6d4);
+}
+
+/* ABOUT */
+.about-main-card {
+    background: linear-gradient(145deg, #ffffff, #f5f8ff);
+}
+
+.about-main-icon {
+    background: linear-gradient(140deg, #2563eb, #06b6d4);
+}
+
+.about-card-footer i,
+.about-point i,
+.text-button {
+    color: #2563eb;
+}
+
+.about-decoration {
+    border-color: #d8e7fb;
+    background: linear-gradient(135deg, #eaf3ff, #f8fbff);
+}
+
+/* FEATURES */
+.feature-card {
+    border-color: #e2eaf6;
+}
+
+.feature-card:hover {
+    border-color: #b8d2fb;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, .12);
+}
+
+.icon-blue,
+.icon-indigo,
+.icon-sky {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.icon-cyan {
+    color: #0891b2;
+    background: #ecfeff;
+}
+
+.feature-link {
+    color: #2563eb;
+}
+
+.feature-decoration {
+    background: #eff6ff;
+}
+
+/* STUDENT MOBILE */
+.student-mobile-visual::before {
+    background: radial-gradient(circle, #dbeafe, #f1f7ff 65%, transparent 70%);
+}
+
+.student-feature-row > span,
+.mobile-feature-list > div > span {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.mobile-floating-notice > span {
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+}
+
+/* WORKFLOW */
+.workflow-section {
+    background: linear-gradient(180deg, #f5f8ff, #edf5ff);
+    border-block-color: #e2eaf6;
+}
+
+.workflow-card {
+    border-color: #dce8f8;
+}
+
+.workflow-icon {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.workflow-line {
+    background: linear-gradient(90deg, #2563eb, #06b6d4);
+}
+
+.workflow-note {
+    border-color: #dce8f8;
+}
+
+.workflow-note-icon {
+    color: #2563eb;
+}
+
+/* REPORT */
+.report-step-icon,
+.report-preview-heading > span {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.document-icon {
+    color: #2563eb;
+    background: #e5efff;
+}
+
+.status-submitted > span {
+    color: #0891b2;
+    background: #ecfeff;
+}
+
+.status-review > span {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.status-revision > span {
+    color: #64748b;
+    background: #f1f5f9;
+}
+
+/* BENEFITS */
+.benefits-section {
+    background: linear-gradient(180deg, #f5f8ff, #ffffff);
+    border-top-color: #e5edf8;
+}
+
+.benefit-icon {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+/* FAQ */
+.faq-contact {
+    background: #f5f8ff;
+}
+
+.faq-contact > i,
+.faq-toggle {
+    color: #2563eb;
+    background: #eff6ff;
+}
+
+.faq-item[open] {
+    border-color: #b8d2fb;
+}
+
+/* CTA */
+.cta-card {
+    background: linear-gradient(115deg, #172554, #1d4ed8 58%, #0891b2);
+    box-shadow: 0 22px 45px rgba(37, 99, 235, .2);
+}
+
+.cta-eyebrow {
+    color: #dbeafe;
+}
+
+.cta-content h2 span {
+    color: #a5f3fc;
+}
+
+.cta-content p {
+    color: #dbeafe;
+}
+
+.cta-button {
+    color: #1d4ed8;
+}
+
+/* FOOTER */
+.footer {
+    background:
+        radial-gradient(circle at 9% 0%, rgba(37, 99, 235, .2), transparent 33%),
+        radial-gradient(circle at 95% 100%, rgba(6, 182, 212, .13), transparent 30%),
+        linear-gradient(135deg, #101d3a 0%, #172554 55%, #0c1934 100%);
+}
+
+.footer::before {
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #2563eb,
+        #06b6d4,
+        #2563eb,
+        transparent
+    );
+}
+
+.footer .brand-name span {
+    color: #67d5f5;
+}
+
+.footer .footer-column h3::after {
+    background: linear-gradient(90deg, #2563eb, #06b6d4);
+}
+
+.footer .footer-column a:hover {
+    color: #ffffff;
+}
+
+.footer .footer-bottom a i {
+    color: #67d5f5;
+}
+
+/* KURSOR BERLIAN */
+.cursor-diamond {
+    background: linear-gradient(135deg, #ffffff, #67e8f9 45%, #2563eb);
+    box-shadow:
+        0 0 7px rgba(37, 99, 235, .9),
+        0 0 16px rgba(6, 182, 212, .55);
+}
+>>>>>>> e45205c9fb0b9c328c3fb433d58c1e4d72744dd8

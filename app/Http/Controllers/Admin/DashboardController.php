@@ -14,25 +14,25 @@ class DashboardController extends Controller
 
         $pengajuanTerbaru = [
             [
-                'nama' => 'Andi Saputra',
-                'instansi' => 'PT Maju Jaya',
+                'nama' => 'Ryomen Sukuna',
+                'instansi' => 'PT Mundur Jaya',
                 'tanggal' => '10 Okt 2026',
                 'status' => 'Menunggu',
             ],
             [
-                'nama' => 'Budi Santoso',
+                'nama' => 'Budianto Mangkuwanitolimo',
                 'instansi' => 'CV Kreatif Media',
                 'tanggal' => '9 Okt 2026',
                 'status' => 'Disetujui',
             ],
             [
-                'nama' => 'Citra Lestari',
+                'nama' => 'Dedi Susanto',
                 'instansi' => 'PT Sinar Abadi',
                 'tanggal' => '8 Okt 2026',
                 'status' => 'Ditolak',
             ],
             [
-                'nama' => 'Dimas Pratama',
+                'nama' => 'Mikael Budiharjo',
                 'instansi' => 'PT Teknologi Nusantara',
                 'tanggal' => '7 Okt 2026',
                 'status' => 'Menunggu',

@@ -67,8 +67,7 @@
 
                 <h1 class="visual-caption">Mulai Langkah Menuju Masa Depan.</h1>
                 <p class="visual-text">
-                    Platform pengajuan Praktik Kerja Lapangan untuk siswa
-                    dan admin.
+                    Platform pengajuan Praktik Kerja Lapangan untuk siswa.
                 </p>
             </div>
 
