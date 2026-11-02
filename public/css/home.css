@@ -2618,9 +2618,6 @@ a {
 
 .faq-item:not([open]) summary:hover .faq-toggle::before {
     transform: translate(-50%, -50%) rotate(45deg);
-<<<<<<< HEAD
-}
-=======
 }
 
 /* =====================================================
@@ -3036,4 +3033,3 @@ a {
         0 0 7px rgba(37, 99, 235, .9),
         0 0 16px rgba(6, 182, 212, .55);
 }
->>>>>>> e45205c9fb0b9c328c3fb433d58c1e4d72744dd8
