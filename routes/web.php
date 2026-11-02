@@ -12,7 +12,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\LaporanPklController;
 use App\Http\Controllers\SiswaDashboardController;
-
+use App\Http\Controllers\SiswaCekStatusController;
+use App\Http\Controllers\SiswaProfileController;
 
 Route::view('/', 'home')->name('home');
 Route::get('/home', function () {
@@ -43,6 +44,12 @@ Route::post('/upload-laporan', [
     LaporanPklController::class,
     'store'
 ])->name('laporan.store');
+
+Route::get('/cek-status', [SiswaCekStatusController::class, 'index'])
+    ->name('siswa.cek-status');
+
+Route::get('/profile', [SiswaProfileController::class, 'index'])
+    ->name('siswa.profile');    
 
 /*
 |--------------------------------------------------------------------------
