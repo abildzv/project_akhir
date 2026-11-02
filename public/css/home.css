@@ -1,5 +1,6 @@
 /* =====================================
    PKL ONLINE — MODERN BLUE LANDING PAGE
+   File: public/css/home.css
    ===================================== */
 
 :root {
@@ -333,7 +334,7 @@ a {
     font-size: 11px;
 }
 
-/* LAPTOP MOCKUP */
+/* TABLET MOCKUP (dulu laptop) */
 
 .hero-visual {
     position: relative;
@@ -650,22 +651,9 @@ a {
     animation: barGrow .8s both;
 }
 
+/* dasar laptop tidak dipakai lagi (sekarang tablet) */
 .laptop-base {
-    height: 12px;
-    margin: 0 -4%;
-    border-radius: 2px 2px 14px 14px;
-    background: linear-gradient(#b8c8dc, #526b8c 65%, #dce7f4);
-    box-shadow: 0 9px 15px #18355725;
-}
-
-.laptop-base::after {
-    content: "";
-    display: block;
-    width: 24%;
-    height: 4px;
-    margin: auto;
-    background: #e5edf7;
-    border-radius: 0 0 7px 7px;
+    display: none;
 }
 
 /* PHONE MOCKUP */
@@ -2136,7 +2124,6 @@ a {
     .timeline-item strong { font-size: 6px; }
     .timeline-item small { font-size: 5px; margin-top: 2px; }
     .preview-chart-bars { height: 25px; gap: 4px; }
-    .laptop-base { height: 7px; }
 
     .hero-phone { width: 31%; min-width: 0; right: -1%; top: 20%; }
     .phone-frame { padding: 4px; border-radius: 22px; }
@@ -2254,104 +2241,8 @@ a {
 }
 
 /* =====================================================
-   REFINED DEVICE MOCKUPS — laptop miring + keyboard jelas
+   FOOTER BIRU
 ===================================================== */
-.hero-visual {
-    perspective: 1500px;
-    perspective-origin: 45% 48%;
-    overflow: visible;
-}
-
-.hero-laptop {
-    position: absolute;
-    z-index: 2;
-    top: 7%;
-    left: 1%;
-    width: 88%;
-    transform: translate(var(--cursor-x, 0), var(--cursor-y, 0)) rotateY(-16deg) rotateX(3deg) rotateZ(-4deg);
-    transform-origin: 52% 65%;
-    transform-style: preserve-3d;
-    filter: drop-shadow(0 22px 20px rgba(25, 57, 104, .13));
-    transition: transform .28s ease-out;
-    animation: laptopEnter .9s ease both;
-    will-change: transform;
-}
-
-.hero-laptop .dashboard-preview {
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-    border: 5px solid #1b3154;
-    border-bottom-width: 7px;
-    border-radius: 15px 15px 5px 5px;
-    background: #f2f7ff;
-    box-shadow: 0 22px 42px rgba(21, 48, 91, .2), inset 0 0 0 1px rgba(255,255,255,.9);
-    transform: rotateY(-2deg) rotateX(1deg);
-    transform-origin: center bottom;
-    backface-visibility: hidden;
-}
-
-/* Laptop base: keyboard rows, palm rest and touchpad */
-.hero-laptop .laptop-base {
-    position: relative;
-    z-index: 1;
-    width: 108%;
-    height: 28px;
-    margin: -1px 0 0 -4%;
-    border: 1px solid #aebfd7;
-    border-radius: 2px 2px 19px 19px;
-    background: linear-gradient(180deg, #d9e5f5 0%, #f9fbff 22%, #c7d5e8 70%, #8195b3 100%);
-    box-shadow: 0 12px 18px rgba(20, 47, 90, .2), inset 0 2px 3px rgba(255,255,255,.95);
-    transform: perspective(650px) rotateX(13deg) rotateZ(-.4deg);
-    transform-origin: center top;
-}
-
-.hero-laptop .laptop-base::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 9%;
-    right: 9%;
-    height: 12px;
-    border: 1px solid #50678e;
-    border-radius: 3px 3px 7px 7px;
-    background-color: #20385f;
-    background-image:
-        repeating-linear-gradient(90deg, transparent 0 10px, rgba(220,235,255,.92) 10px 11px),
-        repeating-linear-gradient(180deg, transparent 0 4px, rgba(220,235,255,.86) 4px 5px);
-    box-shadow: inset 0 1px 3px rgba(0,0,0,.28);
-}
-
-.hero-laptop .laptop-base::after {
-    content: "";
-    position: absolute;
-    left: 39%;
-    bottom: 3px;
-    width: 22%;
-    height: 6px;
-    border: 1px solid #a9bbd3;
-    border-radius: 2px 2px 5px 5px;
-    background: linear-gradient(180deg, #eef5ff, #bacbe1);
-}
-
-.hero-phone {
-    z-index: 5;
-    right: 2%;
-    top: 18%;
-    width: 29%;
-    transform: translateZ(35px) rotateY(-5deg) rotateZ(2deg);
-    transform-origin: center center;
-    filter: drop-shadow(0 17px 20px rgba(18, 44, 83, .2));
-}
-
-/* Floaters stay separate from the device transforms */
-.floating-icon,
-.floating-notification,
-.floating-status-card {
-    will-change: transform;
-}
-
-/* Blue footer treatment */
 .footer {
     position: relative;
     overflow: hidden;
@@ -2432,21 +2323,9 @@ a {
 }
 .footer .footer-bottom a:hover i { transform: translateY(-3px); background: rgba(57,134,255,.16); }
 
-/* Responsive: reduce the 3D angle on narrow screens */
 @media (max-width: 1000px) {
-    .hero-laptop { transform: translate(var(--cursor-x, 0), var(--cursor-y, 0)) rotateY(-8deg) rotateX(1deg) rotateZ(-3deg); }
-    .hero-laptop .laptop-base { height: 25px; }
-    .hero-laptop .laptop-base::before { height: 11px; }
     .footer .footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; }
     .footer .footer-brand { grid-column: 1 / -1; }
-}
-
-@media (max-width: 768px) {
-    .hero-laptop { transform: translate(var(--cursor-x, 0), var(--cursor-y, 0)) rotateY(-4deg) rotateZ(-1deg); }
-    .hero-laptop .dashboard-preview { transform: none; }
-    .hero-laptop .laptop-base { height: 19px; }
-    .hero-laptop .laptop-base::before { height: 8px; }
-    .hero-phone { transform: translateZ(10px) rotateZ(1deg); }
 }
 
 @media (max-width: 520px) {
@@ -2455,7 +2334,9 @@ a {
     .footer .footer-bottom { align-items: flex-start; flex-direction: column; gap: 12px; }
 }
 
-/* Blue diamond cursor sparkle — JS must create .cursor-diamond elements */
+/* =====================================================
+   KURSOR BERLIAN BIRU — JS harus membuat elemen .cursor-diamond
+===================================================== */
 .cursor-diamond {
     position: fixed;
     z-index: 99999;
@@ -2481,82 +2362,118 @@ a {
 }
 
 /* =====================================================
-   HERO MOCKUP — LAPTOP 3D MIRING (layar + keyboard) & HP
-   Blok ini harus berada paling bawah file.
+   HERO MOCKUP — TABLET + HP (gaya iPad & iPhone, tegak)
+   Tablet dan HP SAMA TINGGI, atas & bawah sejajar.
+   Blok ini harus tetap di paling bawah file.
 ===================================================== */
-@media (min-width: 769px) {
-    .hero { min-height: 600px; padding-bottom: 70px; }
 
-    .hero-visual {
-        display: block;
-        min-height: 560px;
-        perspective: 1800px;
-        perspective-origin: 50% 35%;
-    }
+/* semua ukuran mockup mengikuti lebar kolom (satuan cqw) */
+.hero-visual { container-type: inline-size; }
 
-    /* bayangan lembut di bawah perangkat */
-    .hero-visual::after {
-        content: "";
-        position: absolute;
-        left: 6%; right: 6%; bottom: 2%;
-        height: 60px;
-        z-index: -1;
-        border-radius: 50%;
-        background: radial-gradient(ellipse, rgba(30, 70, 140, .22), transparent 70%);
-        filter: blur(14px);
-    }
+/* ---------- TABLET: tegak, bezel tipis, tanpa sidebar ---------- */
+.hero-laptop {
+    transform: translate(var(--cursor-x, 0), var(--cursor-y, 0));
+    filter: drop-shadow(0 28px 30px rgba(25, 57, 104, .2));
+}
 
-    /* ---------- LAPTOP (3D) ---------- */
+.hero-laptop .dashboard-preview {
+    border: 7px solid #12203d;
+    border-radius: 26px;
+    box-shadow:
+        0 0 0 1px #0a1428,
+        inset 0 0 0 1px rgba(255, 255, 255, .05);
+}
+
+/* kamera depan kecil di tengah bezel atas */
+.hero-laptop::after {
+    content: "";
+    position: absolute;
+    z-index: 4;
+    top: 2px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: #3a5687;
+}
+
+/* ---------- HP: gaya iPhone, miring sedikit ke kanan ---------- */
+.hero-phone {
+    transform: translate(var(--cursor-x, 0), var(--cursor-y, 0)) rotate(8deg);
+    transform-origin: 50% 60%;
+    filter: drop-shadow(0 24px 28px rgba(18, 44, 83, .28));
+}
+
+.hero-phone .phone-frame {
+    aspect-ratio: 9 / 19.5;          /* ramping & tinggi, tidak bantet */
+    padding: 6px;
+    border-radius: 42px;
+    background: linear-gradient(135deg, #223a66, #10213f 55%, #2c4574);
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .12);
+}
+
+.hero-phone .phone-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    padding: 36px 12px 12px;
+    border-radius: 36px;
+}
+
+/* notch klasik (menempel di atas layar) */
+.hero-phone .phone-notch {
+    top: 6px;
+    width: 38%;
+    height: 21px;
+    border-radius: 0 0 15px 15px;
+    background: #10213f;
+}
+
+.hero-phone .phone-bottom-nav {
+    margin: auto -12px -12px;
+    padding: 10px 0 12px;
+    border-radius: 0 0 36px 36px;
+}
+
+/* ---------- Geometri (≥ 521px) ----------
+   Tablet lebih besar dari HP:
+   - tablet : lebar 84cqw, rasio 1,15  -> tinggi ≈ 73cqw
+   - HP     : lebar 30cqw, rasio 9:19,5 -> tinggi ≈ 65cqw (± 89% tablet)
+   HP berada di kanan-bawah, mulai lebih rendah dari tablet.        */
+@media (min-width: 521px) {
+    .hero-visual { display: block; }
+
     .hero-laptop {
-        top: 14%;
-        left: 1%;
-        width: 81%;
-        transform-style: preserve-3d;
-        transform-origin: 50% 100%;
-        /* animasi/opacity pada elemen 3D meratakan anak-anaknya (keyboard hilang) */
-        animation: none;
-        opacity: 1;
-        will-change: auto;
-        transform:
-            translate(var(--cursor-x, 0), var(--cursor-y, 0))
-            rotateX(-17deg) rotateY(-7deg) rotateZ(0deg);
-        filter: none;
+        top: calc(50% - 36.5cqw);
+        bottom: auto;
+        left: 0;
+        width: 84cqw;
     }
 
-    /* Layar: rasio 16:10, sedikit bersandar ke belakang */
-    .hero-laptop .dashboard-preview {
-        display: flex;
-        flex-direction: column;
-        aspect-ratio: 16 / 10;
-        transform: rotateX(5deg);
-        transform-origin: 50% 100%;
-        border: 5px solid #1b3154;
-        border-bottom-width: 5px;
-        border-radius: 14px;
-        box-shadow: 0 0 0 1px #0e1d38, 0 18px 40px rgba(21, 48, 91, .22);
-        backface-visibility: visible;
+    .hero-phone {
+        top: calc(50% - 26.5cqw);
+        bottom: auto;
+        right: 1cqw;
+        width: 30cqw;
+        min-width: 0;
+        max-width: none;
     }
 
     .hero-laptop .dashboard-preview {
         position: relative;
-        padding-left: 40px;
+        display: flex;
+        flex-direction: column;
+        aspect-ratio: 1.15 / 1;
+        height: auto;
+        padding-left: 0;              /* tanpa sidebar biru tua */
         background: #f2f7ff;
     }
 
-    /* sidebar gelap + ikon menu */
-    .hero-laptop .dashboard-preview::before {
-        content: "";
-        position: absolute;
-        z-index: 3;
-        top: 0; bottom: 0; left: 0;
-        width: 40px;
-        background:
-            linear-gradient(rgba(255,255,255,.42) 0 12px, transparent 12px) center 52px / 12px 28px repeat-y,
-            linear-gradient(135deg, #3a8bff, #40c1f0) center 14px / 20px 20px no-repeat,
-            linear-gradient(180deg, #15316b, #0e2250);
-    }
+    .hero-laptop .dashboard-preview::before { content: none; }
 
-    .hero-laptop .preview-topbar { flex: 0 0 auto; height: 38px; padding: 0 12px; }
+    .hero-laptop .preview-topbar { flex: 0 0 auto; height: 40px; padding: 0 16px; }
     .hero-laptop .preview-logo { display: none; }
 
     .hero-laptop .preview-body {
@@ -2569,88 +2486,59 @@ a {
             "welcome progress"
             "stats   progress"
             "chart   progress";
-        gap: 6px 9px;
-        padding: 9px 12px;
+        gap: 8px 12px;
+        padding: 12px 16px 14px;
         overflow: hidden;
     }
 
     .hero-laptop .preview-welcome { grid-area: welcome; margin: 0; }
     .hero-laptop .preview-welcome h3 { margin: 4px 0 3px; font-size: 14px; }
     .hero-laptop .preview-avatar { display: none; }
-    .hero-laptop .preview-stats { grid-area: stats; margin: 0; gap: 6px; }
-    .hero-laptop .preview-stat { padding: 7px 8px; gap: 6px; }
+    .hero-laptop .preview-stats { grid-area: stats; margin: 0; gap: 7px; }
+    .hero-laptop .preview-stat { padding: 8px 9px; gap: 6px; }
     .hero-laptop .preview-stat-icon { display: none; }
-    .hero-laptop .preview-mini-chart { grid-area: chart; margin: 0; padding: 8px 10px; }
-    .hero-laptop .preview-chart-bars { height: 34px; margin-top: 5px; }
-    .hero-laptop .preview-progress-card { grid-area: progress; padding: 11px; }
-    .hero-laptop .timeline-item { min-height: 27px; }
-    .hero-laptop .mini-timeline { margin-top: 9px; }
+    .hero-laptop .preview-mini-chart { grid-area: chart; margin: 0; padding: 10px 12px; }
+    .hero-laptop .preview-chart-bars { height: 100px; margin-top: 8px; }
+    .hero-laptop .preview-progress-card { grid-area: progress; padding: 13px; }
+    .hero-laptop .timeline-item { min-height: 32px; }
+    .hero-laptop .mini-timeline { margin-top: 11px; }
 
-    /* Dasar laptop: bidang datar rebah ke arah penonton */
-    .hero-laptop .laptop-base {
-        position: absolute;
-        top: 100%;
-        left: -2%;
-        width: 104%;
-        height: auto;
-        aspect-ratio: 16 / 7.6;
-        margin: 0;
-        border: 1px solid #b4c3d8;
-        border-radius: 6px 6px 22px 22px;
-        background: linear-gradient(180deg, #e9eff8 0%, #f8fbff 40%, #dfe8f4 100%);
-        box-shadow: 0 2px 0 #9fb0c8, 0 4px 0 #8c9fba, inset 0 1px 2px #fff;
-        clip-path: none;
-        transform-origin: 50% 0;
-        transform: rotateX(90deg);
-    }
+    /* spasi isi HP dirapatkan karena HP lebih pendek dari tablet */
+    .hero-phone .phone-screen { padding-top: 36px; }
+    .hero-phone .phone-status { margin-bottom: 8px; }
+    .hero-phone .phone-app-heading { margin-bottom: 10px; }
+    .hero-phone .phone-greeting p { margin-bottom: 8px; }
+    .hero-phone .phone-task-heading { margin: 10px 0 6px; }
 
-    /* keyboard */
-    .hero-laptop .laptop-base::before {
-        display: block;
+    /* aktivitas ke-3 selalu disembunyikan */
+    .hero-phone .phone-task ~ .phone-task ~ .phone-task { display: none; }
+}
+
+/* kolom sempit: cukup 1 aktivitas agar isi HP tidak terpotong */
+@container (max-width: 599px) {
+    .hero-phone .phone-task ~ .phone-task { display: none; }
+}
+
+/* ---------- Susunan hero (≥ 769px) ---------- */
+@media (min-width: 769px) {
+    .hero { min-height: 600px; padding-bottom: 70px; }
+
+    .hero-visual { min-height: 540px; }
+
+    /* bayangan lembut di bawah perangkat */
+    .hero-visual::after {
         content: "";
         position: absolute;
-        top: 7%; left: 6%; right: 6%;
-        height: 50%;
-        border: 0;
-        border-radius: 6px;
-        background-color: #e3ebf6;
-        background-image:
-            repeating-linear-gradient(90deg, #5b74a3 0 5.2%, transparent 5.2% 6.4%),
-            repeating-linear-gradient(180deg, transparent 0 18%, #e3ebf6 18% 24%);
-        background-blend-mode: normal;
-        -webkit-mask: repeating-linear-gradient(180deg, #000 0 16.5%, transparent 16.5% 20%);
-                mask: repeating-linear-gradient(180deg, #000 0 16.5%, transparent 16.5% 20%);
-        box-shadow: none;
+        left: 4%; right: 4%; bottom: 3%;
+        height: 60px;
+        z-index: -1;
+        border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(30, 70, 140, .22), transparent 70%);
+        filter: blur(14px);
     }
 
-    /* touchpad */
-    .hero-laptop .laptop-base::after {
-        content: "";
-        position: absolute;
-        left: 32%; bottom: 7%; top: auto;
-        width: 36%;
-        height: 26%;
-        border: 1px solid #c3d0e3;
-        border-radius: 8px;
-        background: linear-gradient(180deg, #f3f7fc, #dbe5f2);
-    }
-
-    /* ---------- HP ---------- */
-    .hero-phone {
-        top: auto;
-        bottom: 12%;
-        right: 1%;
-        width: 30%;
-        min-width: 150px;
-        max-width: 185px;
-        transform:
-            translate(var(--cursor-x, 0), var(--cursor-y, 0))
-            rotateY(-8deg) rotateZ(3deg) scale(.82);
-        transform-origin: 100% 100%;
-    }
-
-    /* ---------- KARTU & IKON MELAYANG ---------- */
-    .floating-notification { top: 60%; left: -4%; right: auto; bottom: auto; }
+    /* kartu & ikon melayang */
+    .floating-notification { top: 70%; left: -4%; right: auto; bottom: auto; }
     .floating-status-card { top: 0; right: 2%; left: auto; bottom: auto; }
     .floating-icon { display: none; }
 
@@ -2660,14 +2548,74 @@ a {
     .scroll-indicator { left: 0; bottom: 14px; transform: none; animation: none; }
 }
 
-@media (min-width: 769px) and (max-width: 1240px) {
-    .hero-laptop { width: 84%; }
-    .hero-phone { right: 1%; width: 28%; min-width: 140px; }
+@media (min-width: 769px) and (max-width: 1000px) {
+    .hero-visual { min-height: 480px; }
 }
 
-@media (min-width: 769px) and (max-width: 1000px) {
-    .hero-visual { min-height: 500px; }
-    .hero-laptop { width: 82%; }
-    .hero-phone { right: 0; min-width: 130px; width: 26%; }
-    .hero-laptop .preview-welcome h3 { font-size: 12px; }
+/* ---------- HP (≤ 520px): isi mengecil, tinggi mengikuti isi ---------- */
+@media (max-width: 520px) {
+    .hero-laptop .dashboard-preview {
+        border-width: 4px;
+        border-radius: 14px;
+    }
+    .hero-laptop .dashboard-preview::before { content: none; }
+    .hero-laptop::after { display: none; }
+
+    .hero-phone .phone-frame { aspect-ratio: auto; padding: 4px; border-radius: 24px; }
+    .hero-phone .phone-screen { height: auto; min-height: 265px; padding: 18px 6px 7px; border-radius: 20px; }
+    .hero-phone .phone-notch { top: 7px; height: 8px; }
+    .hero-phone .phone-bottom-nav { margin: auto -6px -7px; padding: 6px 0 7px; border-radius: 0 0 20px 20px; }
+}
+
+/* =====================================================
+   KARTU "LEBIH PRAKTIS" — digeser ke kanan supaya
+   tidak menutupi teks "Pengumuman" di HP siswa
+===================================================== */
+@media (min-width: 521px) {
+    .mobile-floating-notice {
+        right: calc(-10% - 85px);
+        bottom: 13%;
+        gap: 7px;
+        padding: 7px 10px 7px 8px;
+        border-radius: 11px;
+        box-shadow: 0 10px 22px #1e508c21;
+    }
+
+    .mobile-floating-notice > span {
+        width: 24px;
+        height: 24px;
+        border-radius: 8px;
+        font-size: 12px;
+    }
+
+    .mobile-floating-notice strong { font-size: 8px; }
+    .mobile-floating-notice small { margin-top: 2px; font-size: 6.5px; }
+}
+
+/* =====================================================
+   FAQ — tanda "+" diganti panah kecil ke bawah (saat tertutup)
+   Saat dibuka tetap tanda × seperti sebelumnya.
+===================================================== */
+.faq-toggle { position: relative; }
+
+/* tertutup: sembunyikan ikon "+" lama, tampilkan panah ke bawah */
+.faq-item:not([open]) .faq-toggle { font-size: 0; }
+.faq-item:not([open]) .faq-toggle > * { display: none; }
+
+.faq-item:not([open]) .faq-toggle::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    border-radius: 1px;
+    transform: translate(-50%, -70%) rotate(45deg);
+    transition: transform .25s;
+}
+
+.faq-item:not([open]) summary:hover .faq-toggle::before {
+    transform: translate(-50%, -50%) rotate(45deg);
 }
