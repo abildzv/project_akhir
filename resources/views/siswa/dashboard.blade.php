@@ -94,12 +94,12 @@
             <div class="top-right">
                 <div class="user">
                     <div class="avatar">
-                        {{ strtoupper(substr($siswa['nama'], 0, 1)) }}
+                        {{ strtoupper(substr($siswa['nama'] ?? 'S', 0, 1)) }}
                     </div>
 
                     <div class="user-info">
-                        <strong>{{ $siswa['nama'] }}</strong>
-                        <span>{{ $siswa['kelas'] }}</span>
+                        <strong>{{ $siswa['nama'] ?? 'Siswa' }}</strong>
+                        <span>{{ $siswa['kelas'] ?? '-' }}</span>
                     </div>
 
                     <i class="ti ti-chevron-down user-chevron"></i>
@@ -117,7 +117,7 @@
                         STUDENT PORTAL
                     </span>
 
-                    <h2>Halo, {{ explode(' ', $siswa['nama'])[0] }}! 👋</h2>
+                    <h2>Halo, {{ explode(' ', $siswa['nama'] ?? 'Siswa')[0] }}! 👋</h2>
 
                     <p>
                         Selamat datang di dashboard PKL Online.
@@ -158,28 +158,28 @@
                 </div>
 
                 <div class="stats">
-                    @foreach ($statistik as $item)
+                    @foreach ($statistik ?? [] as $item)
                         <article class="stat-card">
                             <div class="stat-top">
-                                <div class="stat-icon {{ $item['warna'] }}">
-                                    <i class="ti {{ $item['ikon'] }}"></i>
+                                <div class="stat-icon {{ $item['warna'] ?? '' }}">
+                                    <i class="ti {{ $item['ikon'] ?? 'ti-chart-bar' }}"></i>
                                 </div>
 
                                 <i class="ti ti-chart-bar stat-dots"></i>
                             </div>
 
-                            <p class="stat-label">{{ $item['label'] }}</p>
+                            <p class="stat-label">{{ $item['label'] ?? '-' }}</p>
 
                             <h3>
-                                {{ $item['nilai'] }}
+                                {{ $item['nilai'] ?? 0 }}
 
-                                @if ($item['label'] === 'Sisa Hari PKL')
+                                @if (($item['label'] ?? '') === 'Sisa Hari PKL')
                                     <small>hari</small>
                                 @endif
                             </h3>
 
                             <p class="stat-description">
-                                {{ $item['keterangan'] }}
+                                {{ $item['keterangan'] ?? '' }}
                             </p>
                         </article>
                     @endforeach
@@ -196,7 +196,7 @@
                             <p>Ringkasan tempat dan periode PKL.</p>
                         </div>
 
-                        <span class="status-pill">{{ $pkl['status'] }}</span>
+                        <span class="status-pill">{{ $pkl['status'] ?? '-' }}</span>
                     </div>
 
                     <div class="company">
@@ -205,10 +205,10 @@
                         </div>
 
                         <div>
-                            <h3>{{ $pkl['perusahaan'] }}</h3>
+                            <h3>{{ $pkl['perusahaan'] ?? '-' }}</h3>
                             <p>
                                 <i class="ti ti-map-pin"></i>
-                                {{ $pkl['alamat'] }}
+                                {{ $pkl['alamat'] ?? '-' }}
                             </p>
                         </div>
                     </div>
@@ -216,12 +216,12 @@
                     <div class="progress-info">
                         <div>
                             <span>Progres Laporan</span>
-                            <strong>{{ $pkl['progress'] }}%</strong>
+                            <strong>{{ $pkl['progress'] ?? 0 }}%</strong>
                         </div>
 
                         <div class="progress-track">
                             <div class="progress-fill"
-                                 style="width: {{ $pkl['progress'] }}%">
+                                 style="width: {{ $pkl['progress'] ?? 0 }}%">
                             </div>
                         </div>
 
@@ -234,7 +234,7 @@
                                 <i class="ti ti-calendar-event"></i>
                                 Mulai PKL
                             </span>
-                            <strong>{{ $pkl['tanggal_mulai'] }}</strong>
+                            <strong>{{ $pkl['tanggal_mulai'] ?? '-' }}</strong>
                         </div>
 
                         <div class="detail-row">
@@ -242,7 +242,7 @@
                                 <i class="ti ti-calendar-check"></i>
                                 Selesai PKL
                             </span>
-                            <strong>{{ $pkl['tanggal_selesai'] }}</strong>
+                            <strong>{{ $pkl['tanggal_selesai'] ?? '-' }}</strong>
                         </div>
 
                         <div class="detail-row">
@@ -250,7 +250,7 @@
                                 <i class="ti ti-user-check"></i>
                                 Pembimbing
                             </span>
-                            <strong>{{ $pkl['pembimbing'] }}</strong>
+                            <strong>{{ $pkl['pembimbing'] ?? '-' }}</strong>
                         </div>
                     </div>
                 </article>
@@ -268,19 +268,19 @@
                     </div>
 
                     <div class="activity-list">
-                        @forelse ($aktivitas as $item)
+                        @forelse ($aktivitas ?? [] as $item)
                             <div class="activity-item">
                                 <div class="activity-icon">
-                                    <i class="ti {{ $item['ikon'] }}"></i>
+                                    <i class="ti {{ $item['ikon'] ?? 'ti-file' }}"></i>
                                 </div>
 
                                 <div class="activity-body">
-                                    <h3>{{ $item['judul'] }}</h3>
-                                    <p>{{ $item['tanggal'] }}</p>
+                                    <h3>{{ $item['judul'] ?? '-' }}</h3>
+                                    <p>{{ $item['tanggal'] ?? '-' }}</p>
                                 </div>
 
                                 <span class="activity-status">
-                                    {{ $item['status'] }}
+                                    {{ $item['status'] ?? '-' }}
                                 </span>
                             </div>
                         @empty
@@ -312,16 +312,16 @@
                     </div>
 
                     <div class="announcement-list">
-                        @forelse ($pengumuman as $item)
+                        @forelse ($pengumuman ?? [] as $item)
                             <div class="announcement-item">
-                                <div class="announcement-icon {{ $item['warna'] }}">
+                                <div class="announcement-icon {{ $item['warna'] ?? '' }}">
                                     <i class="ti ti-bell-ringing"></i>
                                 </div>
 
                                 <div>
-                                    <h3>{{ $item['judul'] }}</h3>
-                                    <p>{{ $item['isi'] }}</p>
-                                    <span>{{ $item['tanggal'] }}</span>
+                                    <h3>{{ $item['judul'] ?? '-' }}</h3>
+                                    <p>{{ $item['isi'] ?? '' }}</p>
+                                    <span>{{ $item['tanggal'] ?? '-' }}</span>
                                 </div>
                             </div>
                         @empty
@@ -344,22 +344,22 @@
 
                     <div class="profile-summary">
                         <div class="profile-avatar">
-                            {{ strtoupper(substr($siswa['nama'], 0, 1)) }}
+                            {{ strtoupper(substr($siswa['nama'] ?? 'S', 0, 1)) }}
                         </div>
 
-                        <h3>{{ $siswa['nama'] }}</h3>
-                        <p>{{ $siswa['sekolah'] }}</p>
+                        <h3>{{ $siswa['nama'] ?? 'Siswa' }}</h3>
+                        <p>{{ $siswa['sekolah'] ?? '-' }}</p>
                     </div>
 
                     <div class="detail-list profile-details">
                         <div class="detail-row">
                             <span>NIS</span>
-                            <strong>{{ $siswa['nis'] }}</strong>
+                            <strong>{{ $siswa['nis'] ?? '-' }}</strong>
                         </div>
 
                         <div class="detail-row">
                             <span>Kelas</span>
-                            <strong>{{ $siswa['kelas'] }}</strong>
+                            <strong>{{ $siswa['kelas'] ?? '-' }}</strong>
                         </div>
                     </div>
 
@@ -419,129 +419,43 @@
     </main>
 </div>
 
+
 {{-- Library Chart.js --}}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 
-{{-- Data dan konfigurasi grafik --}}
+{{-- Data Grafik Dashboard --}}
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const canvasProgres = document.getElementById('grafikLaporan');
-    const canvasStatus = document.getElementById('grafikStatusLaporan');
+    window.dashboardPKL = {
+        grafikLaporan: {
+            labels: [
+                'Minggu 1',
+                'Minggu 2',
+                'Minggu 3',
+                'Minggu 4',
+                'Minggu 5',
+                'Minggu 6',
+                'Minggu 7',
+                'Minggu 8'
+            ],
+            data: [1, 2, 3, 4, 5, 6, 7, 8]
+        },
 
-    // Data grafik progres laporan
-    const labelsProgres = {{ Illuminate\Support\Js::from(
-        $grafikLaporan['labels'] ?? [
-            'Minggu 1', 'Minggu 2', 'Minggu 3', 'Minggu 4',
-            'Minggu 5', 'Minggu 6', 'Minggu 7', 'Minggu 8'
-        ]
-    ) }};
-
-    const dataProgres = {{ Illuminate\Support\Js::from(
-        $grafikLaporan['data'] ?? [1, 2, 3, 4, 5, 6, 7, 8]
-    ) }};
-
-    // Data grafik status laporan
-    data: {
-    labels: ['Terkirim', 'Diproses', 'Perlu Revisi'],
-    datasets: [{
-        data: [5, 3, 2],
-        backgroundColor: [
-            '#2563eb',
-            '#16a34a',
-            '#f59e0b'
-        ],
-        borderWidth: 0
-    }]
-}
-    // Grafik progres laporan
-    if (canvasProgres && typeof Chart !== 'undefined') {
-        new Chart(canvasProgres, {
-            type: 'line',
-
-            data: {
-                labels: labelsProgres,
-
-                datasets: [{
-                    label: 'Jumlah Laporan',
-                    data: dataProgres,
-                    borderColor: '#2563eb',
-                    backgroundColor: 'rgba(37, 99, 235, 0.12)',
-                    fill: true,
-                    tension: 0.3,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    pointBackgroundColor: '#2563eb',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2,
-                    borderWidth: 3
-                }]
-            },
-
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
-                },
-
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top',
-                        align: 'start'
-                    }
-                },
-
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            precision: 0
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    // Grafik ringkasan status laporan
-    if (canvasStatus && typeof Chart !== 'undefined') {
-        new Chart(canvasStatus, {
-            type: 'doughnut',
-
-            data: {
-                labels: ['Terkirim', 'Diproses', 'Perlu Revisi'],
-
-                datasets: [{
-                    data: dataStatus,
-                    backgroundColor: [
-                        '#2563eb',
-                        '#16a34a',
-                        '#f59e0b'
-                    ],
-                    borderWidth: 0,
-                    hoverOffset: 8
-                }]
-            },
-
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-    }
-});
+        grafikStatusLaporan: {
+            labels: [
+                'Terkirim',
+                'Diproses',
+                'Perlu Revisi'
+            ],
+            data: [5, 3, 2]
+        }
+    };
 </script>
 
+{{-- JavaScript Dashboard --}}
 <script src="{{ asset('js/dashboard-siswa.js') }}"></script>
 
 </body>
 </html>
+
+
+
