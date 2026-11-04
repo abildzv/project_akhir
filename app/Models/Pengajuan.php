@@ -2,31 +2,25 @@
 
 namespace App\Models;
 
+use App\Enums\StatusPengajuan;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pengajuan extends Model
 {
     protected $table = 'pengajuans';
 
     protected $fillable = [
-        'nama_siswa',
-        'nis',
-        'kelas',
-        'email',
-        'nama_perusahaan',
-        'alamat_perusahaan',
-        'tanggal_mulai',
-        'tanggal_selesai',
-        'surat_pengajuan',
-        'status',
-        'catatan_admin',
+        'user_id', 'nama', 'nis', 'kelas', 'jurusan', 'instansi',
+        'dokumen_path', 'dokumen_nama', 'status', 'catatan',
     ];
 
-    protected function casts(): array
+    protected $casts = [
+        'status' => StatusPengajuan::class,
+    ];
+
+    public function user(): BelongsTo
     {
-        return [
-            'tanggal_mulai' => 'date',
-            'tanggal_selesai' => 'date',
-        ];
+        return $this->belongsTo(User::class);
     }
 }

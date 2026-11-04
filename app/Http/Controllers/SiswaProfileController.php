@@ -2,38 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateFotoRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateProfilRequest;
+use App\Services\PengajuanService;
+use App\Services\ProfilService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SiswaProfileController extends Controller
 {
-    public function index()
+    public function __construct(
+        private readonly ProfilService $profil,
+        private readonly PengajuanService $pengajuan,
+    ) {}
+
+    public function index(Request $request): View
     {
-        // Data sementara untuk menampilkan desain profil.
-        // Nantinya dapat diganti dengan data dari database.
+        $user = $request->user();
 
-        $profile = [
-            'nama' => 'Nayla Zumrotusa’adah',
-            'nisn' => '-',
-            'kelas' => 'XI RPL C',
-            'sekolah' => 'SMK Negeri 2 Trenggalek',
-            'jurusan' => 'Rekayasa Perangkat Lunak (RPL)',
-            'email' => auth()->user()?->email ?? '-',
-            'telepon' => '-',
-            'tempat_lahir' => '-',
-            'tanggal_lahir' => '-',
-            'jenis_kelamin' => '-',
-            'alamat' => '-',
-            'tempat_pkl' => 'PT Hummatech, Malang',
-            'periode_pkl' => '1 Juli 2026 - 31 Desember 2026',
-            'pembimbing' => 'Belum ditentukan',
-            'foto' => null,
-        ];
+        return view('siswa.profile', [
+            'user'      => $user,
+            'pengajuan' => $this->pengajuan->pengajuanTerbaru($user),
+        ]);
+    }
 
-        $siswa = [
-            'nama' => $profile['nama'],
-            'kelas' => $profile['kelas'],
-        ];
+    public function update(UpdateProfilRequest $request): RedirectResponse
+    {
+        $this->profil->perbaruiProfil($request->user(), $request->validated());
 
-        return view('siswa.profile', compact('profile', 'siswa'));
+        return redirect()->route('siswa.profile')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request): RedirectResponse
+    {
+        $this->profil->ubahPassword(
+            $request->user(),
+            $request->validated('password_lama'),
+            $request->validated('password_baru'),
+        );
+
+        return redirect()->route('siswa.profile')->with('success', 'Password berhasil diubah.');
+    }
+
+    public function updateFoto(UpdateFotoRequest $request): RedirectResponse
+    {
+        $this->profil->ubahFoto($request->user(), $request->file('foto'));
+
+        return redirect()->route('siswa.profile')->with('success', 'Foto profil berhasil diperbarui.');
     }
 }

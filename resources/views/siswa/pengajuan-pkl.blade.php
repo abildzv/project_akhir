@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Pengajuan PKL')
@@ -6,6 +5,18 @@
 @section('page-heading', 'Pengajuan PKL')
 
 @section('content')
+
+@php
+    $daftarJurusan = [
+        'Rekayasa Perangkat Lunak',
+        'Desain Pemodelan dan Informasi Bangunan',
+        'Akuntansi',
+        'Kuliner',
+        'Teknik Pendingin dan Tata Udara',
+        'Teknik Konstruksi dan Perumahan',
+        'Teknik Pengelasan',
+    ];
+@endphp
 
 <div class="pkl-page">
     <div class="page-heading">
@@ -33,12 +44,21 @@
         </div>
     </div>
 
-    <form action="{{ url('/pengajuan-pkl') }}"
+    @if (session('success'))
+        <div class="success-message">
+            <i class="ti ti-circle-check"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <form action="{{ route('siswa.pengajuan.store') }}"
           method="POST"
           enctype="multipart/form-data"
-          id="formPengajuan">
+          id="formPengajuan"
+          novalidate>
         @csrf
 
+        {{-- ================= DATA DIRI ================= --}}
         <div class="form-card">
             <div class="form-card-heading">
                 <div class="form-heading-icon">
@@ -85,6 +105,9 @@
                             value="{{ old('kelas', $siswa['kelas'] ?? '') }}"
                             placeholder="Contoh: XI RPL C">
                     </div>
+                    @error('kelas')
+                        <small class="error-text">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-group">
@@ -93,35 +116,12 @@
                         <i class="ti ti-code input-icon"></i>
                         <select id="jurusan" name="jurusan" required>
                             <option value="">Pilih jurusan</option>
-                            <option value="Rekayasa Perangkat Lunak"
-                                @selected(old('jurusan') == 'Rekayasa Perangkat Lunak')>
-                                Rekayasa Perangkat Lunak
-                            </option>
-                            <option value="Desain Pemodelan dan Informasi Bangunan"
-                                @selected(old('jurusan') == 'Desain Pemodelan dan Informasi Bangunan')>
-                                Desain Pemodelan dan Informasi Bangunan
-                            </option>
-                            <option value="Akutansi"
-                                @selected(old('jurusan') == 'Akutansi')>
-                                Akutansi
-                            </option>
-                            <option value="Kuliner"
-                                @selected(old('jurusan') == 'Kuliner')>
-                               Kuliner
-                            </option>
-                            <option value=" Teknik Pendingin dan Tata Udara"
-                                @selected(old('jurusan') == ' Teknik Pendingin dan Tata Udara')>
-                                Teknik Pendingin dan Tata Udara
-                            </option>
-                             <option value=" Teknik Konstruksi dan Perumahan."
-                                @selected(old('jurusan') == ' Teknik Konstruksi dan Perumahan.')>
-                               Teknik Konstruksi dan Perumahan.
-                            </option>
-                             <option value=" Teknik Pengelasan"
-                                @selected(old('jurusan') == ' Teknik Pengelasan')>
-                               Teknik Pengelasan
-                            </option>
-                            
+                            @foreach ($daftarJurusan as $jurusan)
+                                <option value="{{ $jurusan }}"
+                                    @selected(old('jurusan', $siswa['jurusan'] ?? '') === $jurusan)>
+                                    {{ $jurusan }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     @error('jurusan')
@@ -131,19 +131,20 @@
             </div>
         </div>
 
+        {{-- ================= TEMPAT PKL ================= --}}
         <div class="form-card">
             <div class="form-card-heading">
                 <div class="form-heading-icon blue-icon">
                     <i class="ti ti-building"></i>
                 </div>
                 <div>
-                    <h2>Informasi Tempat PKL</h2>
-                    <p>Detail perusahaan dan periode pelaksanaan</p>
+                    <h2>Tempat PKL</h2>
+                    <p>Perusahaan tujuan Praktik Kerja Lapangan</p>
                 </div>
             </div>
 
             <div class="form-grid">
-                <div class="form-group">
+                <div class="form-group form-group-full">
                     <label for="instansi">Nama Instansi / Tempat PKL <span>*</span></label>
                     <div class="input-wrap">
                         <i class="ti ti-building input-icon"></i>
@@ -155,46 +156,10 @@
                         <small class="error-text">{{ $message }}</small>
                     @enderror
                 </div>
-
-                <div class="form-group">
-                    <label for="alamat">Alamat Instansi <span>*</span></label>
-                    <div class="input-wrap">
-                        <i class="ti ti-map-pin input-icon"></i>
-                        <input type="text" id="alamat" name="alamat"
-                            value="{{ old('alamat') }}"
-                            placeholder="Kota atau alamat perusahaan" required>
-                    </div>
-                    @error('alamat')
-                        <small class="error-text">{{ $message }}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="tanggal_mulai">Tanggal Mulai <span>*</span></label>
-                    <div class="input-wrap">
-                        <i class="ti ti-calendar input-icon"></i>
-                        <input type="date" id="tanggal_mulai" name="tanggal_mulai"
-                            value="{{ old('tanggal_mulai') }}" required>
-                    </div>
-                    @error('tanggal_mulai')
-                        <small class="error-text">{{ $message }}</small>
-                    @enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="tanggal_selesai">Tanggal Selesai <span>*</span></label>
-                    <div class="input-wrap">
-                        <i class="ti ti-calendar-check input-icon"></i>
-                        <input type="date" id="tanggal_selesai" name="tanggal_selesai"
-                            value="{{ old('tanggal_selesai') }}" required>
-                    </div>
-                    @error('tanggal_selesai')
-                        <small class="error-text">{{ $message }}</small>
-                    @enderror
-                </div>
             </div>
         </div>
 
+        {{-- ================= DOKUMEN PENGAJUAN ================= --}}
         <div class="form-card">
             <div class="form-card-heading">
                 <div class="form-heading-icon purple-icon">
@@ -202,21 +167,21 @@
                 </div>
                 <div>
                     <h2>Dokumen Pengajuan</h2>
-                    <p>Unggah surat pengajuan dalam format PDF</p>
+                    <p>Unggah surat pengajuan dan laporan dalam 1 file PDF</p>
                 </div>
             </div>
 
             <div class="upload-area" id="uploadArea">
-                <input type="file" id="surat_pengajuan"
-                    name="surat_pengajuan" accept=".pdf,application/pdf" required>
+                <input type="file" id="dokumen" name="dokumen"
+                       accept=".pdf,application/pdf" required>
 
                 <div class="upload-content" id="uploadContent">
                     <div class="upload-icon">
                         <i class="ti ti-cloud-upload"></i>
                     </div>
                     <strong>Pilih dokumen untuk diunggah</strong>
-                    <p>Klik area ini untuk memilih file PDF</p>
-                    <span>Maksimal ukuran file 2 MB</span>
+                    <p>Klik area ini atau seret file PDF ke sini</p>
+                    <span>1 file PDF, maksimal 2 MB</span>
                 </div>
 
                 <div class="file-selected" id="fileSelected" hidden>
@@ -228,18 +193,20 @@
                         <span id="fileSize">0 KB</span>
                     </div>
                     <button type="button" id="removeFile" class="remove-file"
-                        aria-label="Hapus file">
+                            aria-label="Hapus file">
                         <i class="ti ti-x"></i>
                     </button>
                 </div>
             </div>
 
-            @error('surat_pengajuan')
-                <small class="error-text">{{ $message }}</small>
-            @enderror
+            <small class="error-text" id="fileError" role="alert"
+                   @unless($errors->has('dokumen')) hidden @endunless>
+                {{ $errors->first('dokumen') }}
+            </small>
+
             <p class="upload-note">
                 <i class="ti ti-shield-check"></i>
-                Pastikan dokumen dapat dibuka dan berisi informasi yang benar.
+                Gabungkan surat pengajuan dan laporan menjadi 1 file PDF. Pastikan dokumen dapat dibuka dan berisi informasi yang benar.
             </p>
         </div>
 

@@ -60,13 +60,6 @@
                 <span>Pengajuan PKL</span>
             </a>
 
-            <a href="{{ route('siswa.laporan.index') }}"
-               class="{{ request()->routeIs('siswa.laporan.*') ? 'active' : '' }}"
-               @if(request()->routeIs('siswa.laporan.*')) aria-current="page" @endif>
-                <i class="ti ti-cloud-upload"></i>
-                <span>Upload Laporan</span>
-            </a>
-
             <a href="{{ url('/cek-status') }}"
                class="{{ request()->is('cek-status') ? 'active' : '' }}"
                @if(request()->is('cek-status')) aria-current="page" @endif>

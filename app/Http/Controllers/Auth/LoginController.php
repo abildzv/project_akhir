@@ -14,30 +14,28 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
-        ]);
+{
+    $credentials = $request->validate([
+        'email'    => ['required', 'email'],
+        'password' => ['required', 'string'],
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+    if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        $request->session()->regenerate();
 
-            $user = Auth::user();
+        $user = Auth::user();
 
-            if ($user->role === 'admin') {
-                return redirect('/dashboard-admin');
-            }
-
-            return redirect('/dashboard-siswa');
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
         }
 
-        return back()
-            ->withErrors([
-                'email' => 'Email atau password yang kamu masukkan salah.',
-            ])
-            ->onlyInput('email');
+        return redirect()->intended(route('siswa.dashboard'));
     }
+
+    return back()
+        ->withErrors(['email' => 'Email atau password yang kamu masukkan salah.'])
+        ->onlyInput('email');
+}
 
     public function logout(Request $request)
     {
