@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PengajuanController;
-use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\PengaturanController;
 use App\Http\Controllers\Auth\LoginController;
@@ -79,12 +78,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         PengajuanController::class,
         'updateStatus'
     ])->name('pengajuan.updateStatus');
-
-    // Data laporan PKL
-    Route::get('/laporan', [
-        LaporanController::class,
-        'index'
-    ])->name('laporan.index');
 
     Route::get('/siswa', [SiswaController::class, 'index'])
     ->name('siswa.index');

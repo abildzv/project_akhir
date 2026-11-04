@@ -154,7 +154,7 @@
                                     class="toggle-password"
                                     data-target="password"
                                     aria-label="Tampilkan password">
-                                <i class="bi bi-eye"></i>
+                                <i class="bi bi-eye-slash"></i>
                             </button>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                                     class="toggle-password"
                                     data-target="password_confirmation"
                                     aria-label="Tampilkan konfirmasi password">
-                                <i class="bi bi-eye"></i>
+                                <i class="bi bi-eye-slash"></i>
                             </button>
                         </div>
                     </div>

@@ -3,58 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Pengajuan;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Data contoh untuk menguji tampilan dashboard.
-        // Nanti diganti dengan data dari database.
+        $totalPengajuan = Pengajuan::count();
 
-        $pengajuanTerbaru = [
-            [
-                'nama' => 'Ryomen Sukuna',
-                'instansi' => 'PT Mundur Jaya',
-                'tanggal' => '10 Okt 2026',
-                'status' => 'Menunggu',
-            ],
-            [
-                'nama' => 'Budianto Mangkuwanitolimo',
-                'instansi' => 'CV Kreatif Media',
-                'tanggal' => '9 Okt 2026',
-                'status' => 'Disetujui',
-            ],
-            [
-                'nama' => 'Dedi Susanto',
-                'instansi' => 'PT Sinar Abadi',
-                'tanggal' => '8 Okt 2026',
-                'status' => 'Ditolak',
-            ],
-            [
-                'nama' => 'Mikael Budiharjo',
-                'instansi' => 'PT Teknologi Nusantara',
-                'tanggal' => '7 Okt 2026',
-                'status' => 'Menunggu',
-            ],
-        ];
+        $menunggu = Pengajuan::where('status', 'menunggu')->count();
 
-        $totalPengajuan = count($pengajuanTerbaru);
+        $disetujui = Pengajuan::where('status', 'disetujui')->count();
+        
+        $ditolak = Pengajuan::where('status', 'ditolak')->count();
 
-        $menunggu = count(array_filter(
-            $pengajuanTerbaru,
-            fn ($item) => $item['status'] === 'Menunggu'
-        ));
-
-        $disetujui = count(array_filter(
-            $pengajuanTerbaru,
-            fn ($item) => $item['status'] === 'Disetujui'
-        ));
-
-        $ditolak = count(array_filter(
-            $pengajuanTerbaru,
-            fn ($item) => $item['status'] === 'Ditolak'
-        ));
+        $pengajuanTerbaru = Pengajuan::latest()
+            ->take(5)
+            ->get();
 
         return view('admin.dashboard', compact(
             'pengajuanTerbaru',

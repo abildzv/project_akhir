@@ -1,4 +1,3 @@
-
 @extends('layouts.admin')
 
 @section('title', 'Data Pengajuan PKL')
@@ -133,10 +132,12 @@
                     <tr>
                         <th>No.</th>
                         <th>Nama Siswa</th>
-                        <th>NIS</th>
+                        <th>NIS/NISN</th>
                         <th>Kelas</th>
+                        <th>Jurusan</th>
                         <th>Tempat PKL</th>
                         <th>Tanggal Pengajuan</th>
+                        <th>Dokumen Pengajuan</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
@@ -158,6 +159,15 @@
                             $kelas = $item->kelas
                                 ?? $item->user->kelas
                                 ?? '-';
+
+                            $jurusan = $item->jurusan
+                                ?? $item->user->jurusan
+                                ?? '-';
+
+                            $dokumen = $item->dokumen_pengajuan
+                                ?? $item->dokumen
+                                ?? $item->file_pengajuan
+                                ?? null;
 
                             $tempat = $item->nama_perusahaan
                                 ?? $item->tempat_pkl
@@ -186,12 +196,28 @@
 
                             <td>{{ $nis }}</td>
                             <td>{{ $kelas }}</td>
+                            <td>{{ $jurusan }}</td>
                             <td>{{ $tempat }}</td>
 
                             <td>
                                 {{ $item->created_at
                                     ? $item->created_at->format('d M Y')
                                     : '-' }}
+                            </td>
+
+                            <td>
+                                @if($dokumen)
+                                    <a
+                                        href="{{ asset('storage/' . $dokumen) }}"
+                                        target="_blank"
+                                        class="btn-detail"
+                                        title="Lihat dokumen">
+                                        <i class="bi bi-file-earmark-text"></i>
+                                        Lihat
+                                    </a>
+                                @else
+                                    -
+                                @endif
                             </td>
 
                             <td>
@@ -214,7 +240,7 @@
 
                     @empty
                         <tr>
-                            <td colspan="8">
+                            <td colspan="10">
                                 <div class="pengajuan-empty">
                                     <i class="bi bi-inbox"></i>
                                     <h3>Belum ada pengajuan</h3>

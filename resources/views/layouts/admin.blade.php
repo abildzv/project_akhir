@@ -47,12 +47,6 @@
                 <span>Data Pengajuan</span>
             </a>
 
-            <a href="{{ url('/admin/laporan') }}"
-               class="sidebar-link {{ request()->is('admin/laporan*') ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-check"></i>
-                <span>Verifikasi Laporan</span>
-            </a>
-
             <a href="{{ url('/admin/siswa') }}"
                class="sidebar-link {{ request()->is('admin/siswa*') ? 'active' : '' }}">
                 <i class="bi bi-people"></i>

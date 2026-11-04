@@ -10,14 +10,10 @@ class SiswaController extends Controller
 {
     public function index(Request $request)
     {
-        $data = User::query();
+        //Mengambil akun dengan role siswa
+        $data = User::where('role', 'siswa');
 
-        // Hanya menampilkan akun siswa
-        if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'role')) {
-            $data->where('role', 'user');
-        }
-
-        // Pencarian nama, email, atau NIS jika kolom tersedia
+        //Fitur pencarian nama dan email
         if ($request->filled('search')) {
             $search = $request->search;
 
@@ -27,12 +23,16 @@ class SiswaController extends Controller
             });
         }
 
-        $siswa = $data->latest()->paginate(10)->withQueryString();
+        //Menghitung total seluruh siswa
+        $totalSiswa = User::where('role', 'siswa')->count();
 
-        $totalSiswa = (clone $data)->count();
-
+        //Mengambil data siswa terbaru
+        $siswa = $data->latest()
+                      ->paginate(10)
+                      ->withQueryString();
+        
         return view('admin.siswa', compact(
-            'siswa',
+            'siswa', 
             'totalSiswa'
         ));
     }
