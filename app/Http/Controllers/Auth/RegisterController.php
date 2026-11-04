@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -18,22 +17,19 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'max:255', 'unique:users,email'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user = new User();
-        $user->name     = $validated['name'];
-        $user->email    = $validated['email'];
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
         $user->password = Hash::make($validated['password']);
-        $user->role     = 'siswa';
+        $user->role = 'siswa';
         $user->save();
 
-        Auth::login($user);
-        $request->session()->regenerate();
-
-        return redirect()->route('siswa.dashboard')
-            ->with('success', 'Registrasi berhasil. Selamat datang!');
+        return redirect()->route('login')
+            ->with('success', 'Registrasi berhasil! Silakan login menggunakan akun kamu.');
     }
 }
