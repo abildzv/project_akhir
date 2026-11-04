@@ -67,8 +67,7 @@
 
                 <h1 class="visual-caption">Mulai Langkah Menuju Masa Depan.</h1>
                 <p class="visual-text">
-                    Platform pengajuan Praktik Kerja Lapangan untuk siswa
-                    dan admin.
+                    Platform pengajuan Praktik Kerja Lapangan untuk sisw.
                 </p>
             </div>
 
@@ -141,7 +140,7 @@
                                     class="toggle-password"
                                     data-target="password"
                                     aria-label="Tampilkan password">
-                                <i class="bi bi-eye"></i>
+                                <i class="bi bi-eye-slash"></i>
                             </button>
                         </div>
                     </div>

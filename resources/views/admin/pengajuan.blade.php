@@ -89,6 +89,7 @@
 
             <div class="pengajuan-search">
                 <i class="bi bi-search"></i>
+
                 <input
                     type="text"
                     name="search"
@@ -99,20 +100,26 @@
 
             <div class="pengajuan-filter-status">
                 <i class="bi bi-funnel"></i>
+
                 <select name="status" aria-label="Filter status">
+
                     <option value="">Semua Status</option>
+
                     <option value="menunggu"
                         {{ request('status') === 'menunggu' ? 'selected' : '' }}>
                         Menunggu
                     </option>
+
                     <option value="disetujui"
                         {{ request('status') === 'disetujui' ? 'selected' : '' }}>
                         Disetujui
                     </option>
+
                     <option value="ditolak"
                         {{ request('status') === 'ditolak' ? 'selected' : '' }}>
                         Ditolak
                     </option>
+
                 </select>
             </div>
 
@@ -124,116 +131,213 @@
             <a href="{{ url('/admin/pengajuan') }}" class="btn-reset">
                 Reset
             </a>
+
         </form>
 
         {{-- TABEL --}}
         <div class="pengajuan-table-wrapper">
+
             <table class="pengajuan-table">
+
                 <thead>
                     <tr>
                         <th>No.</th>
                         <th>Nama Siswa</th>
-                        <th>NIS</th>
+                        <th>NIS/NISN</th>
                         <th>Kelas</th>
+                        <th>Jurusan</th>
                         <th>Tempat PKL</th>
                         <th>Tanggal Pengajuan</th>
+                        <th>Dokumen Pengajuan</th>
                         <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @forelse($pengajuan ?? [] as $item)
-                        @php
-                            $status = strtolower($item->status ?? 'menunggu');
 
-                            $nama = $item->user->name
+                    @forelse($pengajuan ?? [] as $item)
+
+                        @php
+
+                            // STATUS PENGAJUAN
+                            $status = $item->status instanceof \App\Enums\StatusPengajuan
+                                ? $item->status->value
+                                : ($item->status ?? 'menunggu');
+
+                            $status = strtolower((string) $status);
+
+                            // DATA SISWA
+                            $user = $item->user;
+
+                            $nama = $user?->name
                                 ?? $item->nama_siswa
                                 ?? '-';
 
                             $nis = $item->nis
-                                ?? $item->user->nis
+                                ?? $user?->nis
                                 ?? '-';
 
                             $kelas = $item->kelas
-                                ?? $item->user->kelas
+                                ?? $user?->kelas
                                 ?? '-';
 
-                            $tempat = $item->nama_perusahaan
+                            $jurusan = $item->jurusan
+                                ?? $user?->jurusan
+                                ?? '-';
+
+                            $tempat = $item->tempat
                                 ?? $item->tempat_pkl
                                 ?? '-';
 
-                            $statusClass = in_array($status, [
-                                'disetujui', 'approved'
-                            ]) ? 'badge-disetujui' : (
-                                in_array($status, [
-                                    'ditolak', 'rejected'
-                                ]) ? 'badge-ditolak' : 'badge-menunggu'
-                            );
+                            // DOKUMEN
+                            $dokumen = $item->dokumen ?? null;
+
+                            // CLASS STATUS
+                            $statusClass = match ($status) {
+                                'menunggu' => 'status-menunggu',
+                                'disetujui' => 'status-disetujui',
+                                'ditolak' => 'status-ditolak',
+                                default => 'status-menunggu',
+                            };
+
+                            // NOMOR URUT
+                            $nomor = $loop->iteration;
+
+                            if (method_exists($pengajuan, 'currentPage')) {
+                                $nomor += ($pengajuan->currentPage() - 1)
+                                    * $pengajuan->perPage();
+                            }
+
                         @endphp
 
                         <tr>
-                            <td>{{ $loop->iteration + (($pengajuan->currentPage() ?? 1) - 1) * ($pengajuan->perPage() ?? 10) }}</td>
 
+                            {{-- NOMOR --}}
+                            <td>{{ $nomor }}</td>
+
+                            {{-- NAMA SISWA --}}
                             <td>
                                 <div class="pengajuan-student">
+
                                     <div class="pengajuan-avatar">
                                         {{ strtoupper(substr($nama, 0, 1)) }}
                                     </div>
+
                                     <strong>{{ $nama }}</strong>
+
                                 </div>
                             </td>
 
+                            {{-- NIS --}}
                             <td>{{ $nis }}</td>
+
+                            {{-- KELAS --}}
                             <td>{{ $kelas }}</td>
+
+                            {{-- JURUSAN --}}
+                            <td>{{ $jurusan }}</td>
+
+                            {{-- TEMPAT PKL --}}
                             <td>{{ $tempat }}</td>
 
+                            {{-- TANGGAL --}}
                             <td>
                                 {{ $item->created_at
                                     ? $item->created_at->format('d M Y')
                                     : '-' }}
                             </td>
 
+                            {{-- DOKUMEN --}}
                             <td>
+
+                                @if($dokumen)
+
+                                    <a
+                                        href="{{ asset('storage/' . $dokumen) }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="btn-detail"
+                                        title="Lihat dokumen">
+
+                                        <i class="bi bi-file-earmark-text"></i>
+                                        Lihat
+
+                                    </a>
+
+                                @else
+
+                                    -
+
+                                @endif
+
+                            </td>
+
+                            {{-- STATUS --}}
+                            <td>
+
                                 <span class="pengajuan-badge {{ $statusClass }}">
                                     <span></span>
                                     {{ ucfirst($status) }}
                                 </span>
+
                             </td>
 
+                            {{-- AKSI --}}
                             <td>
+
                                 <a
                                     href="{{ url('/admin/pengajuan/' . $item->id) }}"
                                     class="btn-detail"
                                     title="Lihat detail">
+
                                     <i class="bi bi-eye"></i>
                                     Detail
+
                                 </a>
+
                             </td>
+
                         </tr>
 
                     @empty
+
                         <tr>
-                            <td colspan="8">
+                            <td colspan="10">
+
                                 <div class="pengajuan-empty">
+
                                     <i class="bi bi-inbox"></i>
+
                                     <h3>Belum ada pengajuan</h3>
-                                    <p>Data pengajuan siswa akan muncul di sini.</p>
+
+                                    <p>
+                                        Data pengajuan siswa akan muncul di sini.
+                                    </p>
+
                                 </div>
+
                             </td>
                         </tr>
+
                     @endforelse
+
                 </tbody>
+
             </table>
+
         </div>
 
         {{-- PAGINATION --}}
         @if(isset($pengajuan) && method_exists($pengajuan, 'links'))
+
             <div class="pengajuan-pagination">
                 {{ $pengajuan->withQueryString()->links() }}
             </div>
+
         @endif
 
     </div>
+
 </div>
 @endsection

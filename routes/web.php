@@ -1,21 +1,29 @@
+
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PengajuanController;
-use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\SiswaController;
 use App\Http\Controllers\Admin\PengaturanController;
+
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+
 use App\Http\Controllers\SiswaDashboardController;
 use App\Http\Controllers\SiswaCekStatusController;
 use App\Http\Controllers\SiswaProfileController;
 use App\Http\Controllers\SiswaPengajuanController;
 
+/*
+|--------------------------------------------------------------------------
+| Halaman Utama
+|--------------------------------------------------------------------------
+*/
+
 Route::view('/', 'home')->name('home');
+
 Route::get('/home', function () {
     return view('home');
 })->name('home.page');
@@ -38,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pengajuan-pkl', [SiswaPengajuanController::class, 'store'])
         ->name('siswa.pengajuan.store');
 
-    // Cek status
+    // Cek Status
     Route::get('/cek-status', [SiswaCekStatusController::class, 'index'])
         ->name('siswa.cek-status');
 
@@ -47,23 +55,32 @@ Route::middleware('auth')->group(function () {
         ->name('siswa.cek-status.dokumen');
 
     // Profile
-    Route::get('/profile', [SiswaProfileController::class, 'index'])->name('siswa.profile');
-Route::put('/profile', [SiswaProfileController::class, 'update'])->name('siswa.profile.update');
-Route::put('/profile/password', [SiswaProfileController::class, 'updatePassword'])->name('siswa.profile.password');
-Route::post('/profile/foto', [SiswaProfileController::class, 'updateFoto'])->name('siswa.profile.foto');
+    Route::get('/profile', [SiswaProfileController::class, 'index'])
+        ->name('siswa.profile');
+
+    Route::put('/profile', [SiswaProfileController::class, 'update'])
+        ->name('siswa.profile.update');
+
+    Route::put('/profile/password', [SiswaProfileController::class, 'updatePassword'])
+        ->name('siswa.profile.password');
+
+    Route::post('/profile/foto', [SiswaProfileController::class, 'updateFoto'])
+        ->name('siswa.profile.foto');
 });
+
 /*
 |--------------------------------------------------------------------------
 | Halaman Admin
 |--------------------------------------------------------------------------
 */
 
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])
-    ->name('admin.dashboard');
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
 
-Route::prefix('admin')->name('admin.')->group(function () {
+    // Dashboard Admin
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
-    // Data pengajuan PKL
+    // Data Pengajuan PKL
     Route::get('/pengajuan', [PengajuanController::class, 'index'])
         ->name('pengajuan.index');
 
@@ -73,11 +90,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::patch('/pengajuan/{id}/status', [PengajuanController::class, 'updateStatus'])
         ->name('pengajuan.updateStatus');
 
-    // Data laporan PKL
-    Route::get('/laporan', [LaporanController::class, 'index'])
-        ->name('laporan.index');
-
-    // Data siswa
+    // Data Siswa
     Route::get('/siswa', [SiswaController::class, 'index'])
         ->name('siswa.index');
 
@@ -98,14 +111,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
-    Route::post('/login', [LoginController::class, 'login'])->name('login.process');
+// Login
+Route::get('/login', [LoginController::class, 'showLogin'])
+    ->name('login');
 
-    Route::get('/register', [RegisterController::class, 'showRegister'])->name('register');
-    Route::post('/register', [RegisterController::class, 'register'])->name('register.process');
-});
+Route::post('/login', [LoginController::class, 'login'])
+    ->name('login.process');
 
+// Register
+Route::get('/register', [RegisterController::class, 'showRegister'])
+    ->name('register');
+
+Route::post('/register', [RegisterController::class, 'register'])
+    ->name('register.process');
+
+// Logout
 Route::post('/logout', [LoginController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');

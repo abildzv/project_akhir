@@ -14,28 +14,48 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-{
-    $credentials = $request->validate([
-        'email'    => ['required', 'email'],
-        'password' => ['required', 'string'],
-    ]);
+    {
+        // Validasi email dan password
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
+        ]);
 
-    if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        // Proses login
+        if (!Auth::attempt($credentials, $request->boolean('remember'))) {
+            return back()
+                ->withErrors([
+                    'email' => 'Email atau password yang kamu masukkan salah.'
+                ])
+                ->onlyInput('email');
+        }
+
+        // Regenerasi session
         $request->session()->regenerate();
 
+        // Ambil data user
         $user = Auth::user();
 
-        if ($user->role === 'admin') {
+        // Redirect berdasarkan role
+        if ($user->role->value === 'admin') {
             return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->intended(route('siswa.dashboard'));
-    }
+        if ($user->role->value === 'siswa') {
+            return redirect()->route('siswa.dashboard');
+        }
 
-    return back()
-        ->withErrors(['email' => 'Email atau password yang kamu masukkan salah.'])
-        ->onlyInput('email');
-}
+        // Jika role tidak dikenali
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')
+            ->withErrors([
+                'email' => 'Role akun tidak dikenali.'
+            ]);
+    }
 
     public function logout(Request $request)
     {

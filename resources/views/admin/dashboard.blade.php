@@ -224,7 +224,7 @@
                 <i class="bi bi-activity panel-heading-icon"></i>
             </div>
 
-            @forelse (array_slice($pengajuanTerbaru, 0, 4) as $aktivitas)
+          @forelse ($pengajuanTerbaru->take(4) as $aktivitas)
                 <div class="recent-item">
                     {{-- Avatar inisial --}}
                     <div class="recent-avatar">
