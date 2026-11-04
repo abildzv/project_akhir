@@ -7,6 +7,18 @@
 @php
     $kosong = fn ($v) => ($v === null || $v === '') ? '-' : $v;
 
+    // Normalisasi path foto agar mendukung nilai seperti:
+    // foto/nama.jpg maupun storage/foto/nama.jpg.
+    $fotoPath = $user->foto
+        ? ltrim(preg_replace('#^/?storage/#', '', $user->foto), '/')
+        : null;
+
+    // Pastikan file benar-benar tersedia di disk public sebelum ditampilkan.
+    $fotoUrl = ($fotoPath && \Illuminate\Support\Facades\Storage::disk('public')->exists($fotoPath))
+        ? \Illuminate\Support\Facades\Storage::disk('public')->url($fotoPath)
+            . '?v=' . ($user->updated_at?->timestamp ?? 0)
+        : null;
+
     $nama         = $user->name;
     $nisn         = $kosong($user->nisn);
     $kelas        = $kosong($user->kelas);
@@ -76,9 +88,16 @@
 
         <div class="profile-identity">
             <div class="profile-avatar-wrap">
-                @if ($user->foto)
-                    <img src="{{ asset('storage/' . $user->foto) }}"
-                         alt="Foto {{ $nama }}" class="profile-avatar-image">
+                @if ($fotoUrl)
+                    <img
+                        src="{{ $fotoUrl }}"
+                        alt="Foto {{ $nama }}"
+                        class="profile-avatar-image"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+                    >
+                    <div class="profile-avatar-placeholder" style="display:none;">
+                        <i class="ti ti-user"></i>
+                    </div>
                 @else
                     <div class="profile-avatar-placeholder">
                         <i class="ti ti-user"></i>
@@ -282,10 +301,19 @@
                 </div>
 
                 <div class="photo-preview">
-                    @if ($user->foto)
-                        <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto {{ $nama }}">
+                    @if ($fotoUrl)
+                        <img
+                            src="{{ $fotoUrl }}"
+                            alt="Foto {{ $nama }}"
+                            onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';"
+                        >
+                        <div class="photo-placeholder" style="display:none;">
+                            <i class="ti ti-user"></i>
+                        </div>
                     @else
-                        <div class="photo-placeholder"><i class="ti ti-user"></i></div>
+                        <div class="photo-placeholder">
+                            <i class="ti ti-user"></i>
+                        </div>
                     @endif
 
                     <div>
